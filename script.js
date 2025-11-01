@@ -344,7 +344,7 @@ function generateStars(rating) {
 
 // Get Random Color
 function getRandomColor() {
-    const colors = ['red', 'yellow', 'orange'];
+    const colors = ['red', 'yellow', 'green', 'blue', 'purple', 'orange'];
     return colors[Math.floor(Math.random() * colors.length)];
 }
 
@@ -426,10 +426,10 @@ function initSlider() {
         if (!heroBg) return;
         
         const colors = {
-            pedas: 'linear-gradient(135deg, #dc2626 0%, #f97316 100%)',
-            gurih: 'linear-gradient(135deg, #d97706 0%, #fbbf24 100%)',
-            spesial: 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)',
-            manis: 'linear-gradient(135deg, #f97316 0%, #fbbf24 100%)'
+            pedas: 'linear-gradient(135deg, #dc2626 0%, #f59e0b 100%)',
+            gurih: 'linear-gradient(135deg, #d97706 0%, #f59e0b 100%)',
+            spesial: 'linear-gradient(135deg, #059669 0%, #f59e0b 100%)',
+            manis: 'linear-gradient(135deg, #7c3aed 0%, #f59e0b 100%)'
         };
         
         heroBg.style.background = colors[category] || colors.pedas;
@@ -1256,19 +1256,19 @@ function displayProductReviews(productId) {
         <div class="review-item">
             <div class="review-header">
                 <div class="reviewer-info">
-                    <h5 class="reviewer-name">${review.name}</h5>
+                    <h5>${review.name}</h5>
                     <div class="stars">
                         ${generateStars(review.rating)}
                     </div>
                 </div>
-                <span class="review-date">${review.date}</span>
+                <div class="review-meta">
+                    <span class="review-date">${review.date}</span>
+                    <button class="review-action-btn delete-review delete" data-id="${review.id}" data-product="${productId}">
+                        <i class="fas fa-trash"></i> Hapus
+                    </button>
+                </div>
             </div>
             <p class="review-comment">${review.comment}</p>
-            <div class="review-actions">
-                <button class="review-action-btn delete-review delete" data-id="${review.id}" data-product="${productId}">
-                    <i class="fas fa-trash"></i> Hapus
-                </button>
-            </div>
         </div>
     `).join('');
     
