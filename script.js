@@ -425,11 +425,12 @@ function initSlider() {
         const heroBg = document.querySelector('.hero-bg');
         if (!heroBg) return;
         
+        // Background colors: red, yellow, orange only
         const colors = {
-            pedas: 'linear-gradient(135deg, #dc2626 0%, #f59e0b 100%)',
-            gurih: 'linear-gradient(135deg, #d97706 0%, #f59e0b 100%)',
-            spesial: 'linear-gradient(135deg, #059669 0%, #f59e0b 100%)',
-            manis: 'linear-gradient(135deg, #7c3aed 0%, #f59e0b 100%)'
+            pedas: 'linear-gradient(135deg, #dc2626 0%, #ef4444 100%)', // Red
+            gurih: 'linear-gradient(135deg, #f59e0b 0%, #eab308 100%)', // Yellow
+            spesial: 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)', // Orange
+            manis: 'linear-gradient(135deg, #f59e0b 0%, #eab308 100%)' // Yellow for manis
         };
         
         heroBg.style.background = colors[category] || colors.pedas;
@@ -604,7 +605,7 @@ function initCart() {
         }
     });
     
-    // Checkout functionality
+    // Checkout functionality - Modified to require toppings
     if (checkoutBtn) {
         checkoutBtn.addEventListener('click', function() {
             if (cart.length === 0) {
@@ -816,10 +817,16 @@ function initToppingsModal() {
         }
     });
     
-    // Confirm toppings and send to WhatsApp
+    // Confirm toppings and send to WhatsApp - Modified to require at least one topping
     if (confirmToppings) {
         confirmToppings.addEventListener('click', function() {
             const customToppings = document.getElementById('custom-toppings').value.trim();
+            
+            // Check if at least one topping is selected
+            if (selectedToppings.length === 0) {
+                alert('Silakan pilih minimal satu topping sebelum melanjutkan!');
+                return;
+            }
             
             sendOrderToWhatsApp(selectedToppings, customToppings);
             closeToppingsModal();
