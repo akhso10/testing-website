@@ -425,13 +425,13 @@ body {
     position: relative;
 }
 
+/* PERBAIKAN: Menghapus border dan shadow pada slider container */
 .slider-container {
     position: relative;
     border-radius: 25px;
     overflow: hidden;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    /* Menghapus properti box-shadow dan border */
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .slider {
@@ -1415,7 +1415,7 @@ body {
     }
 }
 
-/* Toppings Modal */
+/* Toppings Modal - Fullscreen */
 .toppings-modal {
     position: fixed;
     top: 0;
@@ -1430,7 +1430,7 @@ body {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s, visibility 0.3s;
-    padding: 20px;
+    padding: 0;
     backdrop-filter: blur(5px);
 }
 
@@ -1441,16 +1441,15 @@ body {
 
 .toppings-modal-content {
     background: white;
-    border-radius: 20px;
+    border-radius: 0;
     padding: 0;
-    max-width: 600px;
     width: 100%;
-    max-height: 90vh;
+    height: 100%;
     overflow: hidden;
     position: relative;
-    transform: scale(0.8);
+    transform: scale(0.9);
     transition: transform 0.3s;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    box-shadow: none;
 }
 
 .toppings-modal.active .toppings-modal-content {
@@ -1497,7 +1496,7 @@ body {
 
 .toppings-body {
     padding: 30px;
-    max-height: 60vh;
+    max-height: calc(100vh - 200px);
     overflow-y: auto;
 }
 
@@ -1514,6 +1513,7 @@ body {
     padding-bottom: 8px;
 }
 
+/* PERBAIKAN: Mempercantik tabel topping dengan warna kuning */
 .topping-options {
     display: grid;
     grid-template-columns: 1fr;
@@ -1526,20 +1526,24 @@ body {
     justify-content: space-between;
     gap: 10px;
     padding: 12px;
-    border: 2px solid #e5e7eb;
+    border: 2px solid #fef3c7;
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
+    background: linear-gradient(to right, #fefce8, #fef3c7);
 }
 
 .topping-option:hover {
-    border-color: #3b82f6;
+    border-color: #f59e0b;
+    background: linear-gradient(to right, #fef3c7, #fde68a);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
 }
 
 .topping-option input[type="checkbox"] {
     width: 18px;
     height: 18px;
-    accent-color: #3b82f6;
+    accent-color: #f59e0b;
 }
 
 .topping-option span {
@@ -1556,9 +1560,9 @@ body {
 .topping-summary {
     margin: 20px 0;
     padding: 15px;
-    background: #f8fafc;
+    background: #fefce8;
     border-radius: 10px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #fef3c7;
 }
 
 .topping-summary-item {
@@ -1603,6 +1607,9 @@ body {
     background: #f8fafc;
     display: flex;
     gap: 15px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 .toppings-footer .btn-primary {
@@ -1615,7 +1622,7 @@ body {
     color: white;
 }
 
-/* Reviews Modal */
+/* Reviews Modal - Fullscreen */
 .reviews-modal {
     position: fixed;
     top: 0;
@@ -1630,7 +1637,7 @@ body {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s, visibility 0.3s;
-    padding: 20px;
+    padding: 0;
     backdrop-filter: blur(5px);
 }
 
@@ -1641,16 +1648,15 @@ body {
 
 .reviews-modal-content {
     background: white;
-    border-radius: 20px;
+    border-radius: 0;
     padding: 0;
-    max-width: 700px;
     width: 100%;
-    max-height: 90vh;
+    height: 100%;
     overflow: hidden;
     position: relative;
-    transform: scale(0.8);
+    transform: scale(0.9);
     transition: transform 0.3s;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    box-shadow: none;
 }
 
 .reviews-modal.active .reviews-modal-content {
@@ -1697,7 +1703,7 @@ body {
 
 .reviews-body {
     padding: 30px;
-    max-height: 80vh;
+    max-height: calc(100vh - 200px);
     overflow-y: auto;
 }
 
@@ -2492,8 +2498,8 @@ body {
     }
     
     .toppings-modal-content {
-        margin: 10px;
-        max-height: 95vh;
+        margin: 0;
+        max-height: 100vh;
     }
     
     .toppings-body {
