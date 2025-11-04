@@ -209,7 +209,7 @@ const ProductManager = {
         
         card.innerHTML = `
             <div class="product-image">
-                <img alt="${product.name}" src="${product.image}"/>
+                <img alt="${product.name}" src="${product.image}" onerror="this.src='assets/coming-soon.jpeg'"/>
                 ${badgeHTML}
                 <div class="product-overlay">
                     <button class="quick-add-btn add-to-cart" data-id="${product.id}">
@@ -564,7 +564,12 @@ const ReviewManager = {
         if (!modal) return;
         
         // Set product info
-        document.getElementById('review-product-image').src = product.image;
+        const productImage = document.getElementById('review-product-image');
+        productImage.src = product.image;
+        productImage.onerror = function() {
+            this.src = 'assets/coming-soon.jpeg';
+        };
+        
         document.getElementById('review-product-name').textContent = product.name;
         
         // Calculate average rating
