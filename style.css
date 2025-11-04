@@ -31,7 +31,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, #f59e0b, #eab308);
+    background: linear-gradient(135deg, #f5ca0b, #eab308);
     border-radius: 5px;
 }
 
@@ -47,8 +47,8 @@ body {
 
 /* CSS Variables */
 :root {
-    --primary-start: #f59e0b;
-    --primary-end: #eab308;
+    --primary-start: #ecca6b;
+    --primary-end: #e8cf8f;
     --primary-gradient: linear-gradient(135deg, var(--primary-start) 0%, var(--primary-end) 100%);
     --primary-shadow: rgba(245, 158, 11, 0.3);
     --secondary-gradient: linear-gradient(135deg, #3b82f6, #2563eb);
