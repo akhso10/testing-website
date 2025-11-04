@@ -12,7 +12,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <img alt="Mix & Crunch Logo" class="logo" src="/image2/logo.jpg"/>
+                <img alt="Mix & Crunch Logo" class="logo" src="assets/logo.jpg"/>
                 <h1>Mix & Crunch</h1>
             </div>
             <div class="nav-menu" id="nav-menu">
@@ -23,36 +23,11 @@
                     </div>
                 </div>
                 <ul class="nav-list">
-                    <li>
-                        <a class="nav-link" href="#beranda">
-                            <i class="fas fa-home"></i>
-                            Beranda
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="#produk">
-                            <i class="fas fa-box"></i>
-                            Produk
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="#tentang">
-                            <i class="fas fa-info-circle"></i>
-                            Tentang
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="#testimoni">
-                            <i class="fas fa-comment"></i>
-                            Testimoni
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="#kontak">
-                            <i class="fas fa-phone"></i>
-                            Kontak
-                        </a>
-                    </li>
+                    <li><a class="nav-link" href="#beranda"><i class="fas fa-home"></i> Beranda</a></li>
+                    <li><a class="nav-link" href="#produk"><i class="fas fa-box"></i> Produk</a></li>
+                    <li><a class="nav-link" href="#tentang"><i class="fas fa-info-circle"></i> Tentang</a></li>
+                    <li><a class="nav-link" href="#testimoni"><i class="fas fa-comment"></i> Testimoni</a></li>
+                    <li><a class="nav-link" href="#kontak"><i class="fas fa-phone"></i> Kontak</a></li>
                 </ul>
                 <div class="nav-search">
                     <input class="search-input" placeholder="Cari produk..." type="text"/>
@@ -87,9 +62,7 @@
             <button class="close-cart"><i class="fas fa-times"></i></button>
         </div>
         <div class="cart-items-container">
-            <div class="cart-items" id="cart-items">
-                <!-- Cart items will be added here dynamically -->
-            </div>
+            <div class="cart-items" id="cart-items"></div>
         </div>
         <div class="cart-summary">
             <div class="summary-item">
@@ -101,134 +74,171 @@
                 <span id="cart-total">Rp 0</span>
             </div>
             <button class="checkout-btn" id="checkout-btn">
-                <i class="fas fa-credit-card"></i>
-                Checkout
+                <i class="fas fa-credit-card"></i> Checkout
             </button>
             <button class="continue-shopping">
-                <i class="fas fa-arrow-left"></i>
-                Lanjut Belanja
+                <i class="fas fa-arrow-left"></i> Lanjut Belanja
             </button>
             <button class="clear-cart-btn" id="clear-cart-btn">
-                <i class="fas fa-trash"></i>
-                Hapus Semua
+                <i class="fas fa-trash"></i> Hapus Semua
             </button>
         </div>
     </div>
 
-    <!-- Toppings Modal - Fullscreen -->
-    <div class="toppings-modal" id="toppings-modal">
-        <div class="toppings-modal-content">
-            <div class="toppings-header">
+    <!-- Toppings Modal -->
+    <div class="modal-overlay" id="toppings-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
                 <h3><i class="fas fa-utensils"></i> Pilih Topping</h3>
-                <button class="close-toppings"><i class="fas fa-times"></i></button>
+                <button class="modal-close" id="close-toppings"><i class="fas fa-times"></i></button>
             </div>
-            <div class="toppings-body">
-                <div class="topping-category">
-                    <h4>Saus</h4>
-                    <div class="topping-options">
-                        <label class="topping-option">
+            <div class="modal-body" id="toppings-body">
+                <div class="topping-section">
+                    <h4><i class="fas fa-pepper-hot"></i> Saus</h4>
+                    <div class="topping-grid">
+                        <label class="topping-item">
                             <input type="checkbox" name="saus" value="Saus Tomat">
-                            <span>Saus Tomat</span>
+                            <div class="topping-content">
+                                <span class="topping-name">Saus Tomat</span>
+                                <span class="topping-price">+Rp 2,000</span>
+                            </div>
                         </label>
-                        <label class="topping-option">
+                        <label class="topping-item">
                             <input type="checkbox" name="saus" value="Saus Sambal">
-                            <span>Saus Sambal</span>
+                            <div class="topping-content">
+                                <span class="topping-name">Saus Sambal</span>
+                                <span class="topping-price">+Rp 2,000</span>
+                            </div>
                         </label>
-                        <label class="topping-option">
+                        <label class="topping-item">
                             <input type="checkbox" name="saus" value="Mayones">
-                            <span>Mayones</span>
+                            <div class="topping-content">
+                                <span class="topping-name">Mayones</span>
+                                <span class="topping-price">+Rp 3,000</span>
+                            </div>
                         </label>
-                        <label class="topping-option">
+                        <label class="topping-item">
                             <input type="checkbox" name="saus" value="Saus BBQ">
-                            <span>Saus BBQ</span>
+                            <div class="topping-content">
+                                <span class="topping-name">Saus BBQ</span>
+                                <span class="topping-price">+Rp 3,000</span>
+                            </div>
                         </label>
                     </div>
                 </div>
                 
-                <div class="topping-category">
-                    <h4>Sayuran</h4>
-                    <div class="topping-options">
-                        <label class="topping-option">
+                <div class="topping-section">
+                    <h4><i class="fas fa-leaf"></i> Sayuran</h4>
+                    <div class="topping-grid">
+                        <label class="topping-item">
                             <input type="checkbox" name="sayuran" value="Selada">
-                            <span>Selada</span>
+                            <div class="topping-content">
+                                <span class="topping-name">Selada</span>
+                                <span class="topping-price">+Rp 1,500</span>
+                            </div>
                         </label>
-                        <label class="topping-option">
+                        <label class="topping-item">
                             <input type="checkbox" name="sayuran" value="Tomat">
-                            <span>Tomat</span>
+                            <div class="topping-content">
+                                <span class="topping-name">Tomat</span>
+                                <span class="topping-price">+Rp 2,000</span>
+                            </div>
                         </label>
-                        <label class="topping-option">
+                        <label class="topping-item">
                             <input type="checkbox" name="sayuran" value="Timun">
-                            <span>Timun</span>
+                            <div class="topping-content">
+                                <span class="topping-name">Timun</span>
+                                <span class="topping-price">+Rp 1,500</span>
+                            </div>
                         </label>
-                        <label class="topping-option">
+                        <label class="topping-item">
                             <input type="checkbox" name="sayuran" value="Jagung">
-                            <span>Jagung</span>
+                            <div class="topping-content">
+                                <span class="topping-name">Jagung</span>
+                                <span class="topping-price">+Rp 2,500</span>
+                            </div>
                         </label>
                     </div>
                 </div>
                 
-                <div class="topping-category">
-                    <h4>Topping Tambahan</h4>
-                    <div class="topping-options">
-                        <label class="topping-option">
+                <div class="topping-section">
+                    <h4><i class="fas fa-plus-circle"></i> Topping Tambahan</h4>
+                    <div class="topping-grid">
+                        <label class="topping-item">
                             <input type="checkbox" name="topping" value="Nugget">
-                            <span>Nugget</span>
+                            <div class="topping-content">
+                                <span class="topping-name">Nugget</span>
+                                <span class="topping-price">+Rp 5,000</span>
+                            </div>
                         </label>
-                        <label class="topping-option">
+                        <label class="topping-item">
                             <input type="checkbox" name="topping" value="Sosis">
-                            <span>Sosis</span>
+                            <div class="topping-content">
+                                <span class="topping-name">Sosis</span>
+                                <span class="topping-price">+Rp 4,000</span>
+                            </div>
                         </label>
-                        <label class="topping-option">
+                        <label class="topping-item">
                             <input type="checkbox" name="topping" value="Keju">
-                            <span>Keju</span>
+                            <div class="topping-content">
+                                <span class="topping-name">Keju</span>
+                                <span class="topping-price">+Rp 3,500</span>
+                            </div>
                         </label>
-                        <label class="topping-option">
+                        <label class="topping-item">
                             <input type="checkbox" name="topping" value="Telur">
-                            <span>Telur</span>
+                            <div class="topping-content">
+                                <span class="topping-name">Telur</span>
+                                <span class="topping-price">+Rp 3,000</span>
+                            </div>
                         </label>
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="custom-toppings"><i class="fas fa-edit"></i> Catatan Khusus</label>
-                    <textarea id="custom-toppings" placeholder="Contoh: Tambah pedas, tanpa bawang, dll" rows="3"></textarea>
+                    <label for="custom-notes"><i class="fas fa-edit"></i> Catatan Khusus</label>
+                    <textarea id="custom-notes" placeholder="Contoh: Tambah pedas, tanpa bawang, dll" rows="3"></textarea>
+                </div>
+                
+                <div class="topping-summary">
+                    <div class="summary-row">
+                        <span>Total Topping:</span>
+                        <span id="topping-total">Rp 0</span>
+                    </div>
                 </div>
             </div>
-            <div class="toppings-footer">
+            <div class="modal-footer">
                 <button class="btn-primary" id="confirm-toppings">
-                    <i class="fab fa-whatsapp"></i>
-                    Pesan via WhatsApp
+                    <i class="fab fa-whatsapp"></i> Pesan via WhatsApp
                 </button>
                 <button class="btn-secondary" id="cancel-toppings">
-                    <i class="fas fa-arrow-left"></i>
-                    Kembali
+                    <i class="fas fa-arrow-left"></i> Kembali
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Reviews Modal - Fullscreen -->
-    <div class="reviews-modal" id="reviews-modal">
-        <div class="reviews-modal-content">
-            <div class="reviews-header">
+    <!-- Reviews Modal -->
+    <div class="modal-overlay" id="reviews-overlay">
+        <div class="modal-container reviews-modal">
+            <div class="modal-header">
                 <h3><i class="fas fa-star"></i> Ulasan Produk</h3>
-                <button class="close-reviews"><i class="fas fa-times"></i></button>
+                <button class="modal-close" id="close-reviews"><i class="fas fa-times"></i></button>
             </div>
-            <div class="reviews-body">
+            <div class="modal-body" id="reviews-body">
                 <div class="product-review-info">
                     <img id="review-product-image" src="" alt="Product Image">
-                    <div>
+                    <div class="product-info">
                         <h4 id="review-product-name"></h4>
                         <div class="product-rating">
-                            <div class="stars" id="review-product-rating">
-                                <!-- Stars will be populated here -->
-                            </div>
+                            <div class="stars" id="review-product-rating"></div>
                             <span class="review-count" id="review-product-count">(0 ulasan)</span>
                         </div>
                     </div>
                 </div>
-                <div class="add-review-section">
-                    <h4>Tambah Ulasan</h4>
+                
+                <div class="review-form-section">
+                    <h4><i class="fas fa-plus"></i> Tambah Ulasan</h4>
                     <div class="rating-input">
                         <span>Rating:</span>
                         <div class="star-rating">
@@ -247,28 +257,31 @@
                         <label for="review-comment">Komentar</label>
                         <textarea id="review-comment" placeholder="Bagikan pengalaman Anda dengan produk ini" rows="4"></textarea>
                     </div>
-                    <button class="btn-primary" id="submit-review">Kirim Ulasan</button>
+                    <button class="btn-primary" id="submit-review">
+                        <i class="fas fa-paper-plane"></i> Kirim Ulasan
+                    </button>
                 </div>
-                <div class="reviews-list" id="reviews-list">
-                    <!-- Reviews will be populated here -->
+                
+                <div class="reviews-list-section">
+                    <h4><i class="fas fa-comments"></i> Semua Ulasan</h4>
+                    <div class="reviews-list" id="reviews-list"></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Cart Notification -->
-    <div class="cart-notification" id="cart-notification">
+    <!-- Notifications -->
+    <div class="notification" id="cart-notification">
         <i class="fas fa-check-circle"></i>
         <span>Produk berhasil ditambahkan ke keranjang!</span>
     </div>
 
-    <!-- Social Action Notification -->
-    <div class="social-notification" id="social-notification">
+    <div class="notification" id="social-notification">
         <i class="fas fa-check-circle"></i>
         <span id="social-notification-text">Aksi berhasil!</span>
     </div>
 
-    <!-- Beranda/Hero Section -->
+    <!-- Hero Section -->
     <section class="hero" id="beranda">
         <div class="hero-bg"></div>
         <div class="container">
@@ -279,12 +292,10 @@
                     <p>Rasa autentik Indonesia dalam setiap gigitan. Nikmati kelezatan ciki berkualitas dengan berbagai varian rasa yang menggugah selera.</p>
                     <div class="hero-buttons">
                         <a class="btn-primary" href="#produk">
-                            <i class="fas fa-box"></i>
-                            Lihat Produk
+                            <i class="fas fa-box"></i> Lihat Produk
                         </a>
                         <a class="btn-secondary" href="#kontak">
-                            <i class="fas fa-phone"></i>
-                            Hubungi Kami
+                            <i class="fas fa-phone"></i> Hubungi Kami
                         </a>
                     </div>
                 </div>
@@ -292,13 +303,13 @@
                     <div class="slider-container">
                         <div class="slider" id="slider">
                             <div class="slide active" data-category="pedas">
-                                <img alt="Ciki Pedas" src="/image2/Coming Soon.jpeg"/>
+                                <img alt="Ciki Pedas" src="assets/coming-soon.jpeg"/>
                             </div>
                             <div class="slide" data-category="gurih">
-                                <img alt="Ciki Keju" src="/image2/Coming Soon.jpeg"/>
+                                <img alt="Ciki Keju" src="assets/coming-soon.jpeg"/>
                             </div>
                             <div class="slide" data-category="spesial">
-                                <img alt="Ciki Jagung Bakar" src="/image2/Coming Soon.jpeg"/>
+                                <img alt="Ciki Jagung Bakar" src="assets/coming-soon.jpeg"/>
                             </div>
                         </div>
                         <div class="slider-controls">
@@ -307,6 +318,7 @@
                             </button>
                             <button class="slider-btn" id="next-slide">
                                 <i class="fas fa-chevron-right"></i>
+                            </button>
                         </div>
                         <div class="slider-nav">
                             <div class="slider-dot active" data-slide="0"></div>
@@ -317,9 +329,7 @@
                 </div>
             </div>
             <div class="scroll-down floating-animation">
-                <a href="#produk">
-                    <i class="fas fa-chevron-down"></i>
-                </a>
+                <a href="#produk"><i class="fas fa-chevron-down"></i></a>
             </div>
         </div>
     </section>
@@ -357,49 +367,40 @@
         </div>
     </section>
 
-    <!-- Produk Section -->
+    <!-- Products Section -->
     <section class="products" id="produk">
         <div class="container">
             <div class="section-header">
                 <h2>Rekomendasi Ciki Dari Kami</h2>
                 <p>Temukan berbagai varian rasa ciki premium kami yang dibuat dengan bahan-bahan pilihan terbaik.</p>
             </div>
-            <!-- Filter Buttons -->
             <div class="filter-buttons">
                 <button class="filter-btn active" data-filter="all">
-                    <i class="fas fa-th"></i>
-                    Semua
+                    <i class="fas fa-th"></i> Semua
                 </button>
                 <button class="filter-btn" data-filter="pedas">
-                    <i class="fas fa-pepper-hot"></i>
-                    Pedas
+                    <i class="fas fa-pepper-hot"></i> Pedas
                 </button>
                 <button class="filter-btn" data-filter="gurih">
-                    <i class="fas fa-cheese"></i>
-                    Gurih
+                    <i class="fas fa-cheese"></i> Gurih
                 </button>
                 <button class="filter-btn" data-filter="manis">
-                    <i class="fas fa-candy-cane"></i>
-                    Manis
+                    <i class="fas fa-candy-cane"></i> Manis
                 </button>
                 <button class="filter-btn" data-filter="spesial">
-                    <i class="fas fa-star"></i>
-                    Spesial
+                    <i class="fas fa-star"></i> Spesial
                 </button>
             </div>
-            <div class="products-grid" id="product-container">
-                <!-- Product Cards will be populated by JavaScript -->
-            </div>
+            <div class="products-grid" id="product-container"></div>
             <div class="view-more-container">
                 <button class="btn-primary" id="view-more-btn">
-                    <i class="fas fa-eye"></i>
-                    Lihat Produk Lainnya
+                    <i class="fas fa-eye"></i> Lihat Produk Lainnya
                 </button>
             </div>
         </div>
     </section>
 
-    <!-- Tentang Kami Section -->
+    <!-- About Section -->
     <section class="about" id="tentang">
         <div class="container">
             <div class="section-header">
@@ -413,36 +414,28 @@
                     <p>Kami menggunakan bahan-bahan pilihan terbaik dan proses produksi yang higienis untuk memastikan setiap produk yang kami hasilkan memiliki kualitas terbaik dan rasa yang konsisten.</p>
                     <div class="about-features">
                         <div class="feature-item">
-                            <div class="feature-icon">
-                                <i class="fas fa-leaf"></i>
-                            </div>
+                            <div class="feature-icon"><i class="fas fa-leaf"></i></div>
                             <div class="feature-text">
                                 <h4>Bahan Alami</h4>
                                 <p>Menggunakan bahan-bahan alami berkualitas tinggi</p>
                             </div>
                         </div>
                         <div class="feature-item">
-                            <div class="feature-icon">
-                                <i class="fas fa-award"></i>
-                            </div>
+                            <div class="feature-icon"><i class="fas fa-award"></i></div>
                             <div class="feature-text">
                                 <h4>Kualitas Terjamin</h4>
                                 <p>Standar produksi yang tinggi dan terjamin</p>
                             </div>
                         </div>
                         <div class="feature-item">
-                            <div class="feature-icon">
-                                <i class="fas fa-heart"></i>
-                            </div>
+                            <div class="feature-icon"><i class="fas fa-heart"></i></div>
                             <div class="feature-text">
                                 <h4>Ramah Konsumen</h4>
                                 <p>Pelayanan terbaik untuk kepuasan pelanggan</p>
                             </div>
                         </div>
                         <div class="feature-item">
-                            <div class="feature-icon">
-                                <i class="fas fa-truck"></i>
-                            </div>
+                            <div class="feature-icon"><i class="fas fa-truck"></i></div>
                             <div class="feature-text">
                                 <h4>Pengiriman Cepat</h4>
                                 <p>Proses pengiriman yang cepat dan aman</p>
@@ -451,13 +444,13 @@
                     </div>
                 </div>
                 <div class="about-image">
-                    <img alt="Proses Produksi Mix & Crunch" src="/image2/ciki 12.jpg"/>
+                    <img alt="Proses Produksi Mix & Crunch" src="assets/ciki-12.jpg"/>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimoni Section -->
+    <!-- Testimonials Section -->
     <section class="testimonials" id="testimoni">
         <div class="container">
             <div class="section-header">
@@ -471,11 +464,7 @@
                         <div>
                             <h4>Sari Wijaya</h4>
                             <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                             </div>
                         </div>
                     </div>
@@ -487,11 +476,7 @@
                         <div>
                             <h4>Budi Santoso</h4>
                             <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                             </div>
                         </div>
                     </div>
@@ -503,11 +488,7 @@
                         <div>
                             <h4>Dewi Lestari</h4>
                             <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                             </div>
                         </div>
                     </div>
@@ -565,7 +546,7 @@
         </div>
     </section>
 
-    <!-- Kontak Section -->
+    <!-- Contact Section -->
     <section class="contact" id="kontak">
         <div class="container">
             <div class="section-header">
@@ -576,40 +557,31 @@
                 <div class="contact-info">
                     <h3>Informasi Kontak</h3>
                     <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
                         <div>
                             <h4>Alamat</h4>
                             <p>Jl. Letjen Ibrahim Adjie No. 178, Sindang Barang, Kecamatan Bogor Barat, Kota Bogor, Jawa Barat 16117</p>
                         </div>
                     </div>
                     <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
                         <div>
                             <h4>Telepon</h4>
                             <p>+62 856 9281 6835 (Customer Service)</p>
                         </div>
                     </div>
                     <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
                         <div>
                             <h4>Email</h4>
-                            <p>info@mixncrunch.id</p>
+                            <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="caa3a4aca58aa7a3b2a4a9b8bfa4a9a2e4a3ae">[email&#160;protected]</a></p>
                         </div>
                     </div>
                     <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
+                        <div class="contact-icon"><i class="fas fa-clock"></i></div>
                         <div>
                             <h4>Jam Operasional</h4>
-                            <p>Senin - Jumat: 08:00 - 17:00</p>
-                            <p>Sabtu: 08:00 - 14:00</p>
+                            <p>Senin - Jumat: 08:00 - 17:00<br>Sabtu: 08:00 - 14:00</p>
                         </div>
                     </div>
                     <div class="social-links">
@@ -646,6 +618,6 @@
         <i class="fas fa-chevron-up"></i>
     </div>
 
-    <script src="script.js"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="script.js"></script>
 </body>
 </html>
