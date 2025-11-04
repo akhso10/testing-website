@@ -1213,8 +1213,16 @@ body {
     transform: scale(1);
 }
 
-.modal-container.reviews-modal {
-    max-width: 800px;
+/* Fullscreen Modal Styles */
+.fullscreen-modal {
+    max-width: 95%;
+    max-height: 95vh;
+    width: 95%;
+    height: 95vh;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .modal-header {
@@ -1223,6 +1231,7 @@ body {
     color: white;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
+    flex-shrink: 0;
 }
 
 .modal-header h3 {
@@ -1259,9 +1268,9 @@ body {
 
 .modal-body {
     padding: 30px;
-    max-height: calc(90vh - 200px);
     overflow-y: auto;
     background: white;
+    flex: 1;
 }
 
 .modal-footer {
@@ -1270,6 +1279,7 @@ body {
     background: #f8fafc;
     display: flex;
     gap: 15px;
+    flex-shrink: 0;
 }
 
 .modal-footer .btn-primary,
