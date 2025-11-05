@@ -1492,31 +1492,10 @@ body {
     transform: scale(1.1);
 }
 
-/* PERBAIKAN: Toppings body yang bisa di-scroll */
 .toppings-body {
     padding: 30px;
     max-height: calc(100vh - 200px);
     overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #f59e0b #fef3c7;
-}
-
-.toppings-body::-webkit-scrollbar {
-    width: 8px;
-}
-
-.toppings-body::-webkit-scrollbar-track {
-    background: #fef3c7;
-    border-radius: 10px;
-}
-
-.toppings-body::-webkit-scrollbar-thumb {
-    background: #f59e0b;
-    border-radius: 10px;
-}
-
-.toppings-body::-webkit-scrollbar-thumb:hover {
-    background: #d97706;
 }
 
 .topping-category {
@@ -1532,7 +1511,7 @@ body {
     padding-bottom: 8px;
 }
 
-/* PERBAIKAN: Mempercantik tabel topping dengan warna kuning yang lebih harmonis */
+/* PERBAIKAN: Mempercantik tabel topping dengan warna kuning */
 .topping-options {
     display: grid;
     grid-template-columns: 1fr;
