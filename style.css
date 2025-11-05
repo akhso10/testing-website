@@ -21,9 +21,9 @@ body {
 }
 
 :root {
-    --primary-color: #ecca6b;
-    --secondary-color: #e8cf8f;
-    --primary-gradient: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    --primary-start: #ecca6b;
+    --primary-end: #e8cf8f;
+    --primary-gradient: linear-gradient(135deg, var(--primary-start) 0%, var(--primary-end) 100%);
     --primary-shadow: rgba(236, 202, 107, 0.3);
 }
 
@@ -111,7 +111,7 @@ body {
 
 /* Navbar */
 .navbar {
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #ecca6b 0%, #e8cf8f 100%);
     padding: 15px 0;
     position: fixed;
     width: 100%;
@@ -150,7 +150,7 @@ body {
     color: white;
     font-size: 1.8rem;
     font-weight: 700;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -183,7 +183,7 @@ body {
 }
 
 .nav-link:hover {
-    color: var(--primary-color);
+    color: var(--primary-start);
     background: rgba(255, 255, 255, 0.1);
 }
 
@@ -226,7 +226,7 @@ body {
 }
 
 .search-icon:hover {
-    color: var(--primary-color);
+    color: var(--primary-start);
 }
 
 .nav-icons {
@@ -248,7 +248,7 @@ body {
 }
 
 .cart-icon:hover {
-    color: var(--primary-color);
+    color: var(--primary-start);
     background: rgba(255, 255, 255, 0.2);
     transform: scale(1.1);
 }
@@ -257,7 +257,7 @@ body {
     position: absolute;
     top: -2px;
     right: -2px;
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #ef4444, #dc2626);
     color: white;
     border-radius: 50%;
     width: 22px;
@@ -267,7 +267,7 @@ body {
     justify-content: center;
     font-size: 0.8rem;
     font-weight: 600;
-    box-shadow: 0 2px 8px var(--primary-shadow);
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
 }
 
 .mobile-nav-controls {
@@ -345,7 +345,7 @@ body {
 }
 
 .mobile-search-icon:hover {
-    color: var(--primary-color);
+    color: var(--primary-start);
 }
 
 /* Hero Section */
@@ -399,9 +399,9 @@ body {
     display: block;
     font-size: 1.8rem;
     font-weight: 600;
-    color: var(--secondary-color);
+    color: #fbbf24;
     margin-bottom: 25px;
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -506,8 +506,8 @@ body {
 
 .slider-dot.active {
     background: white;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 4px var(--primary-shadow);
+    border-color: rgba(245, 158, 11, 0.5);
+    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.2);
 }
 
 .scroll-down {
@@ -554,7 +554,7 @@ body {
 
 /* Promo Banner */
 .promo-banner {
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #f59e0b 0%, #eab308 100%);
     color: white;
     padding: 20px 0;
     position: relative;
@@ -664,15 +664,15 @@ body {
 }
 
 .filter-btn.active {
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
     color: white;
-    border-color: var(--primary-color);
+    border-color: #3b82f6;
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px var(--primary-shadow);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
 }
 
 .filter-btn:hover:not(.active) {
-    border-color: var(--primary-color);
+    border-color: #3b82f6;
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
@@ -773,13 +773,13 @@ body {
 }
 
 .product-badge.hot {
-    background: var(--primary-gradient);
-    box-shadow: 0 4px 15px var(--primary-shadow);
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
 }
 
 .product-badge.new {
-    background: var(--primary-gradient);
-    box-shadow: 0 4px 15px var(--primary-shadow);
+    background: linear-gradient(135deg, #10b981, #059669);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
 }
 
 .product-overlay {
@@ -817,7 +817,7 @@ body {
 }
 
 .quick-add-btn:hover {
-    background: var(--primary-color);
+    background: #3b82f6;
     color: white;
     transform: scale(1.1);
 }
@@ -863,7 +863,7 @@ body {
 }
 
 .stars {
-    color: var(--primary-color);
+    color: #fbbf24;
     font-size: 0.9rem;
 }
 
@@ -927,25 +927,25 @@ body {
 }
 
 .add-to-cart-btn {
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
     color: white;
-    box-shadow: 0 4px 15px var(--primary-shadow);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
 }
 
 .add-to-cart-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px var(--primary-shadow);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
 }
 
 .whatsapp-order-btn {
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #10b981, #059669);
     color: white;
-    box-shadow: 0 4px 15px var(--primary-shadow);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
 }
 
 .whatsapp-order-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px var(--primary-shadow);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
 }
 
 .notify-btn {
@@ -992,7 +992,7 @@ body {
 }
 
 .social-action-btn:hover {
-    color: var(--primary-color);
+    color: #3b82f6;
 }
 
 .social-action-btn.liked {
@@ -1000,7 +1000,7 @@ body {
 }
 
 .social-action-btn.bookmarked {
-    color: var(--primary-color);
+    color: #f59e0b;
 }
 
 /* Social Notification */
@@ -1009,11 +1009,11 @@ body {
     top: 100px;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
     color: white;
     padding: 16px 24px;
     border-radius: 12px;
-    box-shadow: 0 8px 25px var(--primary-shadow);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
     z-index: 1000;
     display: none;
     align-items: center;
@@ -1078,7 +1078,7 @@ body {
 .feature-icon {
     width: 50px;
     height: 50px;
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #f59e0b, #eab308);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1155,7 +1155,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 25px;
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #1e3a8a, #7e22ce);
     color: white;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -1259,7 +1259,7 @@ body {
 }
 
 .qty-btn:hover {
-    background: var(--primary-color);
+    background: #3b82f6;
     color: white;
     transform: scale(1.1);
 }
@@ -1333,14 +1333,14 @@ body {
 }
 
 .checkout-btn {
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
     color: white;
-    box-shadow: 0 4px 15px var(--primary-shadow);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
 }
 
 .checkout-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px var(--primary-shadow);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
 }
 
 .checkout-btn:disabled {
@@ -1362,14 +1362,14 @@ body {
 }
 
 .clear-cart-btn {
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #ef4444, #dc2626);
     color: white;
-    box-shadow: 0 4px 15px var(--primary-shadow);
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
 }
 
 .clear-cart-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px var(--primary-shadow);
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
 }
 
 .empty-cart {
@@ -1389,11 +1389,11 @@ body {
     position: fixed;
     top: 100px;
     right: 20px;
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #10b981, #059669);
     color: white;
     padding: 16px 24px;
     border-radius: 12px;
-    box-shadow: 0 8px 25px var(--primary-shadow);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
     z-index: 1000;
     display: none;
     align-items: center;
@@ -1456,7 +1456,7 @@ body {
 
 .toppings-header {
     padding: 25px;
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #1e3a8a, #7e22ce);
     color: white;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -1494,15 +1494,12 @@ body {
 
 .toppings-body {
     padding: 30px;
-    height: calc(100vh - 200px);
+    max-height: calc(100vh - 200px);
     overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
 }
 
 .topping-category {
-    margin-bottom: 0;
+    margin-bottom: 25px;
 }
 
 .topping-category h4 {
@@ -1510,10 +1507,11 @@ body {
     font-weight: 600;
     margin-bottom: 15px;
     color: #1f2937;
-    border-bottom: 2px solid var(--primary-color);
+    border-bottom: 2px solid #f59e0b;
     padding-bottom: 8px;
 }
 
+/* PERBAIKAN: Mempercantik tabel topping dengan warna kuning */
 .topping-options {
     display: grid;
     grid-template-columns: 1fr;
@@ -1534,16 +1532,16 @@ body {
 }
 
 .topping-option:hover {
-    border-color: var(--primary-color);
+    border-color: #f59e0b;
     background: linear-gradient(to right, #fef3c7, #fde68a);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px var(--primary-shadow);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
 }
 
 .topping-option input[type="checkbox"] {
     width: 18px;
     height: 18px;
-    accent-color: var(--primary-color);
+    accent-color: #f59e0b;
 }
 
 .topping-option span {
@@ -1551,8 +1549,29 @@ body {
     color: #4b5563;
 }
 
+.topping-price {
+    font-weight: 600;
+    color: #f59e0b;
+    font-size: 0.9rem;
+}
+
+.topping-summary {
+    margin: 20px 0;
+    padding: 15px;
+    background: #fefce8;
+    border-radius: 10px;
+    border: 1px solid #fef3c7;
+}
+
+.topping-summary-item {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    color: #1f2937;
+}
+
 .form-group {
-    margin-bottom: 0;
+    margin-bottom: 20px;
 }
 
 .form-group label {
@@ -1575,9 +1594,9 @@ body {
 }
 
 .form-group textarea:focus {
-    border-color: var(--primary-color);
+    border-color: #3b82f6;
     outline: none;
-    box-shadow: 0 0 0 3px var(--primary-shadow);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .toppings-footer {
@@ -1644,7 +1663,7 @@ body {
 
 .reviews-header {
     padding: 25px;
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #1e3a8a, #7e22ce);
     color: white;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -1728,7 +1747,7 @@ body {
 }
 
 .add-review-section h4 i {
-    color: var(--primary-color);
+    color: #f59e0b;
 }
 
 .rating-input {
@@ -1751,11 +1770,11 @@ body {
 }
 
 .star-rating i.active {
-    color: var(--primary-color);
+    color: #fbbf24;
 }
 
 .star-rating i:hover {
-    color: var(--primary-color);
+    color: #fbbf24;
 }
 
 .form-group label {
@@ -1768,7 +1787,7 @@ body {
 }
 
 .form-group label i {
-    color: var(--primary-color);
+    color: #f59e0b;
 }
 
 .form-group input,
@@ -1784,9 +1803,9 @@ body {
 
 .form-group input:focus,
 .form-group textarea:focus {
-    border-color: var(--primary-color);
+    border-color: #3b82f6;
     outline: none;
-    box-shadow: 0 0 0 3px var(--primary-shadow);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .all-reviews-section {
@@ -1804,7 +1823,7 @@ body {
 }
 
 .all-reviews-section h4 i {
-    color: var(--primary-color);
+    color: #f59e0b;
 }
 
 .review-item {
@@ -1818,9 +1837,9 @@ body {
 }
 
 .review-item:hover {
-    border-color: var(--primary-color);
+    border-color: #f59e0b;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px var(--primary-shadow);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
 }
 
 .review-header {
@@ -1873,7 +1892,7 @@ body {
 }
 
 .review-action-btn:hover {
-    color: var(--primary-color);
+    color: #3b82f6;
 }
 
 .review-action-btn.delete:hover {
@@ -1918,7 +1937,7 @@ body {
     top: -10px;
     left: 20px;
     font-size: 4rem;
-    color: var(--primary-color);
+    color: #3b82f6;
     opacity: 0.2;
     font-family: serif;
 }
@@ -1997,7 +2016,7 @@ body {
 
 .faq-question i {
     transition: transform 0.3s ease;
-    color: var(--primary-color);
+    color: #3b82f6;
     font-size: 1.2rem;
 }
 
@@ -2051,7 +2070,7 @@ body {
 }
 
 .contact .section-header h2::after {
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
 }
 
 .contact .section-header p {
@@ -2091,7 +2110,7 @@ body {
 
 .contact-icon i {
     font-size: 1.2rem;
-    color: var(--primary-color);
+    color: #f59e0b;
 }
 
 .contact-item h4 {
@@ -2138,7 +2157,7 @@ body {
 .social-icon:hover {
     background: rgba(255, 255, 255, 0.25);
     transform: translateY(-5px);
-    color: var(--primary-color);
+    color: #f59e0b;
 }
 
 .contact-map h3 {
@@ -2175,14 +2194,14 @@ body {
     right: 30px;
     width: 55px;
     height: 55px;
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
     color: white;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 8px 25px var(--primary-shadow);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
     z-index: 100;
     opacity: 0;
     transition: all 0.3s ease;
@@ -2195,7 +2214,7 @@ body {
 
 .back-to-top:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 35px var(--primary-shadow);
+    box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
 }
 
 /* Animations */
@@ -2267,7 +2286,7 @@ body {
 .feature-icon {
     width: 80px;
     height: 80px;
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #f59e0b, #eab308);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -2293,15 +2312,15 @@ body {
 @keyframes logoAnimation {
     0% {
         transform: scale(1) rotate(0deg);
-        box-shadow: 0 0 0 var(--primary-shadow);
+        box-shadow: 0 0 0 rgba(245, 158, 11, 0.4);
     }
     50% {
         transform: scale(1.05) rotate(5deg);
-        box-shadow: 0 0 20px var(--primary-shadow);
+        box-shadow: 0 0 20px rgba(245, 158, 11, 0.6);
     }
     100% {
         transform: scale(1) rotate(0deg);
-        box-shadow: 0 0 0 var(--primary-shadow);
+        box-shadow: 0 0 0 rgba(245, 158, 11, 0.4);
     }
 }
 
@@ -2408,7 +2427,7 @@ body {
         position: fixed;
         top: 0;
         right: -100%;
-        width: 65%;
+        width: 65%; /* PERBAIKAN: Menu sidebar 65% dari tampilan mobile */
         height: 100vh;
         background: white;
         flex-direction: column;
@@ -2443,7 +2462,7 @@ body {
     
     .nav-link:hover {
         background: transparent;
-        color: var(--primary-color);
+        color: #3b82f6;
     }
     
     .nav-search {
@@ -2566,7 +2585,6 @@ body {
     
     .toppings-body {
         padding: 25px 20px;
-        height: calc(100vh - 200px);
     }
     
     .topping-options {
