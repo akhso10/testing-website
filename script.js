@@ -476,12 +476,12 @@ function initSlider() {
         const heroBg = document.querySelector('.hero-bg');
         if (!heroBg) return;
         
-        // Background colors: red, yellow, orange only
+        // Background colors: yellow and variations
         const colors = {
-            pedas: 'linear-gradient(135deg, #dc2626 0%, #ef4444 100%)', // Red
-            gurih: 'linear-gradient(135deg, #f59e0b 0%, #eab308 100%)', // Yellow
-            spesial: 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)', // Orange
-            manis: 'linear-gradient(135deg, #f59e0b 0%, #eab308 100%)' // Yellow for manis
+            pedas: 'linear-gradient(135deg, #ecca6b 0%, #e8cf8f 100%)',
+            gurih: 'linear-gradient(135deg, #e8cf8f 0%, #ecca6b 100%)',
+            spesial: 'linear-gradient(135deg, #ecca6b 0%, #d4b85a 100%)',
+            manis: 'linear-gradient(135deg, #e8cf8f 0%, #ecca6b 100%)'
         };
         
         heroBg.style.background = colors[category] || colors.pedas;
