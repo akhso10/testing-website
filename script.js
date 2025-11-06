@@ -626,7 +626,7 @@ function initCart() {
         });
     }
     
-    // Add to cart functionality
+    // Add to cart functionality with smooth animation
     document.addEventListener('click', function(e) {
         if (e.target.closest('.add-to-cart') || e.target.closest('.add-to-cart-btn')) {
             const button = e.target.closest('.add-to-cart') || e.target.closest('.add-to-cart-btn');
@@ -634,6 +634,12 @@ function initCart() {
             const productId = button.getAttribute('data-id');
             const productName = button.getAttribute('data-product');
             const productPrice = parseInt(button.getAttribute('data-price'));
+            
+            // Smooth animation effect
+            button.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                button.style.transform = 'scale(1)';
+            }, 200);
             
             // Check if product already in cart
             const existingItem = cart.find(item => item.id === productId);
@@ -665,7 +671,10 @@ function initCart() {
             }
             
             closeCartSidebar();
-            openToppingsModal();
+            // Smooth transition to toppings modal
+            setTimeout(() => {
+                openToppingsModal();
+            }, 300);
         });
     }
     
