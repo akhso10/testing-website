@@ -1496,10 +1496,13 @@ body {
     padding: 30px;
     max-height: calc(100vh - 200px);
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 }
 
 .topping-category {
-    margin-bottom: 25px;
+    margin-bottom: 0;
 }
 
 .topping-category h4 {
