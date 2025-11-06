@@ -9,7 +9,7 @@ const products = [
         rating: 4.5,
         reviews: 128,
         description: "Ciki Citato Lite rasa original dengan kerenyahan khas yang bikin nagih. Cocok untuk menemani waktu santai, nonton, atau nongkrong bareng teman.",
-        image: "images/ciki 1.jpg",
+        image: "ciki 1.jpg",
         badge: "hot",
         variants: [
             { name: "Pedas Biasa", price: 12000 },
@@ -26,7 +26,7 @@ const products = [
         rating: 4.8,
         reviews: 95,
         description: "Ciki Citato Lite rasa Mie Goreng — kombinasi gurih, asin, dan sedikit manis yang mirip mie goreng legendaris. Kerenyahan maksimal dengan aroma khas yang bikin lapar terus.",
-        image: "images/ciki 2.png",
+        image: "ciki 2.png",
         badge: "new",
         variants: [
             { name: "Keju Original", price: 13000 },
@@ -43,7 +43,7 @@ const products = [
         rating: 4.3,
         reviews: 76,
         description: "Lays Rumput Laut menghadirkan kerenyahan kentang pilihan dengan balutan bumbu rumput laut yang gurih dan aromatik. Setiap gigitan memberikan rasa laut yang khas dan bikin nagih.",
-        image: "images/ciki 3.jpg",
+        image: "ciki 3.jpg",
         variants: [
             { name: "Jagung Bakar Original", price: 11000 },
             { name: "Jagung Bakar Pedas", price: 13000 }
@@ -58,7 +58,7 @@ const products = [
         rating: 4.6,
         reviews: 112,
         description: "Doritos Jagung Bakar menghadirkan sensasi renyah khas tortilla chips berpadu dengan rasa jagung bakar yang gurih, manis, dan sedikit smoky. Camilan favorit yang bikin susah berhenti ngemil.",
-        image: "images/ciki 4.jpg",
+        image: "ciki 4.jpg",
         badge: "hot",
         variants: [
             { name: "Balado Original", price: 12500 },
@@ -74,7 +74,7 @@ const products = [
         rating: 4.4,
         reviews: 88,
         description: "japota Rumput Laut hadir dengan potongan kentang super renyah dan bumbu rumput laut asli yang gurih serta aromatik. Setiap gigitan bikin kamu serasa ngemil di pinggir pantai Jepang.",
-        image: "images/ciki 5.jpg",
+        image: "ciki 5.jpg",
         variants: [
             { name: "BBQ Original", price: 14000 },
             { name: "BBQ Spicy", price: 16000 }
@@ -89,7 +89,7 @@ const products = [
         rating: 4.7,
         reviews: 134,
         description: "Japota Ayam Bawang menghadirkan kelezatan rasa ayam gurih berpadu aroma bawang yang harum menggoda. Renyahnya kentang Japota membuat rasa klasik ini terasa makin istimewa di setiap gigitan.",
-        image: "images/ciki 6.jpg",
+        image: "ciki 6.jpg",
         badge: "new",
         variants: [
             { name: "Rumput Laut Original", price: 15000 },
@@ -105,7 +105,7 @@ const products = [
         rating: 4.9,
         reviews: 67,
         description: "Japota Sapi Panggang menawarkan rasa daging sapi panggang premium dengan aroma smoky yang khas. Kentangnya tebal, gurih, dan renyah — bikin setiap gigitan terasa seperti makan steak mini.",
-        image: "images/ciki 10.jpg",
+        image: "ciki 10.jpg",
         badge: "new",
         variants: [
             { name: "Sapi Panggang Original", price: 18000 },
@@ -121,7 +121,7 @@ const products = [
         rating: 4.5,
         reviews: 91,
         description: "Ciki Twist Jagung Bakar menghadirkan sensasi gurih dan manis dari jagung bakar khas Indonesia. Teksturnya ringan, renyah, dan bikin susah berhenti ngemil. Cocok untuk semua suasana.",
-        image: "images/ciki 11.jpg",
+        image: "ciki 11.jpg",
         variants: [
             { name: "Ayam Bakar Original", price: 16000 },
             { name: "Ayam Bakar Madu", price: 18000 }
