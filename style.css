@@ -2791,23 +2791,9 @@ body {
     }
 }
 
-/* === PERBAIKAN: Rapikan area bawah tombol "Kirim Ulasan" === */
-.add-review-section {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-}
-
-.reviews-body {
-    padding-bottom: 0 !important;
-}
-
-.reviews-modal-content {
-    padding-bottom: 0 !important;
-}
-
 /* === PERBAIKAN: Tambah jarak antara Catatan Khusus dan tombol WhatsApp === */
 .form-group {
-    margin-bottom: 25px !important; /* jarak bawah antara catatan dan tombol */
+    margin-bottom: 35px !important; /* jarak bawah antara catatan dan tombol */
 }
 
 .toppings-footer {
