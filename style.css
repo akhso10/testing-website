@@ -18,6 +18,8 @@ body {
     color: #333;
     background-color: #f8fafc;
     overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
 }
 
 :root {
@@ -26,7 +28,7 @@ body {
     --primary-gradient: linear-gradient(135deg, var(--primary-start) 0%, var(--primary-end) 100%);
     --primary-shadow: rgba(236, 202, 107, 0.3);
     --orange-primary: #f97316;
-    --orange-light: #fed7aa;
+    --orange-light: #fdba74;
     --orange-dark: #ea580c;
 }
 
@@ -84,10 +86,12 @@ body {
     border: none;
     cursor: pointer;
     box-shadow: 0 4px 15px var(--primary-shadow);
+    transform: translateZ(0);
+    will-change: transform;
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
     box-shadow: 0 8px 25px var(--primary-shadow);
 }
 
@@ -104,12 +108,14 @@ body {
     transition: all 0.3s ease;
     border: 2px solid rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
+    transform: translateZ(0);
+    will-change: transform;
 }
 
 .btn-secondary:hover {
     background: rgba(255, 255, 255, 0.1);
     border-color: white;
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
 }
 
 /* Navbar */
@@ -123,6 +129,7 @@ body {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
     border-radius: 0 0 25px 25px;
+    transform: translateZ(0);
 }
 
 .nav-container {
@@ -147,6 +154,7 @@ body {
     object-fit: cover;
     border: 2px solid rgba(255, 255, 255, 0.3);
     animation: logoAnimation 3s ease-in-out infinite;
+    transform: translateZ(0);
 }
 
 .nav-logo h1 {
@@ -183,6 +191,7 @@ body {
     padding: 6px 12px;
     border-radius: 25px;
     position: relative;
+    transform: translateZ(0);
 }
 
 .nav-link:hover {
@@ -248,12 +257,13 @@ body {
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
+    transform: translateZ(0);
 }
 
 .cart-icon:hover {
     color: var(--primary-start);
     background: rgba(255, 255, 255, 0.2);
-    transform: scale(1.1);
+    transform: scale(1.1) translateZ(0);
 }
 
 .cart-count {
@@ -370,6 +380,7 @@ body {
     background: var(--primary-gradient);
     z-index: -2;
     transition: background 0.8s ease;
+    transform: translateZ(0);
 }
 
 .hero-bg::before {
@@ -433,11 +444,13 @@ body {
     border-radius: 25px;
     overflow: hidden;
     backdrop-filter: blur(10px);
+    transform: translateZ(0);
 }
 
 .slider {
     display: flex;
     transition: transform 0.5s ease;
+    transform: translateZ(0);
 }
 
 .slide {
@@ -456,6 +469,7 @@ body {
     height: 450px;
     object-fit: contain;
     background: transparent;
+    transform: translateZ(0);
 }
 
 .slider-controls {
@@ -483,11 +497,12 @@ body {
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.3);
+    transform: translateZ(0);
 }
 
 .slider-btn:hover {
     background: rgba(255, 255, 255, 0.3);
-    transform: scale(1.1);
+    transform: scale(1.1) translateZ(0);
 }
 
 .slider-nav {
@@ -505,6 +520,7 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     border: 2px solid transparent;
+    transform: translateZ(0);
 }
 
 .slider-dot.active {
@@ -664,19 +680,20 @@ body {
     align-items: center;
     gap: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transform: translateZ(0);
 }
 
 .filter-btn.active {
     background: linear-gradient(135deg, #3b82f6, #2563eb);
     color: white;
     border-color: #3b82f6;
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
     box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
 }
 
 .filter-btn:hover:not(.active) {
     border-color: #3b82f6;
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
@@ -695,10 +712,11 @@ body {
     position: relative;
     border: 1px solid rgba(0, 0, 0, 0.05);
     animation: fadeInUp 0.6s ease forwards;
+    transform: translateZ(0);
 }
 
 .product-card:hover {
-    transform: translateY(-15px);
+    transform: translateY(-15px) translateZ(0);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
@@ -757,10 +775,11 @@ body {
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
+    transform: translateZ(0);
 }
 
 .product-card:hover .product-image img {
-    transform: scale(1.1);
+    transform: scale(1.1) translateZ(0);
 }
 
 .product-badge {
@@ -817,12 +836,13 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    transform: translateZ(0);
 }
 
 .quick-add-btn:hover {
     background: #3b82f6;
     color: white;
-    transform: scale(1.1);
+    transform: scale(1.1) translateZ(0);
 }
 
 .coming-soon-overlay {
@@ -927,6 +947,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 6px;
+    transform: translateZ(0);
 }
 
 .add-to-cart-btn {
@@ -936,7 +957,7 @@ body {
 }
 
 .add-to-cart-btn:hover {
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
     box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
 }
 
@@ -947,7 +968,7 @@ body {
 }
 
 .whatsapp-order-btn:hover {
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
     box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
 }
 
@@ -992,6 +1013,7 @@ body {
     align-items: center;
     gap: 5px;
     font-size: 0.8rem;
+    transform: translateZ(0);
 }
 
 .social-action-btn:hover {
@@ -1147,6 +1169,7 @@ body {
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    transform: translateZ(0);
 }
 
 .cart-sidebar.active {
@@ -1184,11 +1207,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    transform: translateZ(0);
 }
 
 .close-cart:hover {
     background: rgba(255, 255, 255, 0.2);
-    transform: scale(1.1);
+    transform: scale(1.1) translateZ(0);
 }
 
 .cart-items-container {
@@ -1259,12 +1283,13 @@ body {
     transition: all 0.3s ease;
     font-weight: 600;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transform: translateZ(0);
 }
 
 .qty-btn:hover {
     background: #3b82f6;
     color: white;
-    transform: scale(1.1);
+    transform: scale(1.1) translateZ(0);
 }
 
 .qty-display {
@@ -1287,12 +1312,13 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    transform: translateZ(0);
 }
 
 .remove-item:hover {
     background: #ef4444;
     color: white;
-    transform: scale(1.1);
+    transform: scale(1.1) translateZ(0);
 }
 
 .cart-summary {
@@ -1333,6 +1359,7 @@ body {
     justify-content: center;
     gap: 8px;
     font-size: 0.95rem;
+    transform: translateZ(0);
 }
 
 .checkout-btn {
@@ -1342,7 +1369,7 @@ body {
 }
 
 .checkout-btn:hover {
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
     box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
 }
 
@@ -1371,7 +1398,7 @@ body {
 }
 
 .clear-cart-btn:hover {
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
     box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
 }
 
@@ -1488,18 +1515,18 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    transform: translateZ(0);
 }
 
 .close-toppings:hover {
     background: rgba(255, 255, 255, 0.2);
-    transform: scale(1.1);
+    transform: scale(1.1) translateZ(0);
 }
 
 .toppings-body {
     padding: 30px;
     max-height: calc(100vh - 200px);
     overflow-y: auto;
-    padding-bottom: 150px; /* Extra space for scrolling on mobile */
 }
 
 .topping-category {
@@ -1540,12 +1567,13 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     background: linear-gradient(to right, #fff7ed, var(--orange-light));
+    transform: translateZ(0);
 }
 
 .topping-option:hover {
     border-color: var(--orange-primary);
-    background: linear-gradient(to right, var(--orange-light), #fed7aa);
-    transform: translateY(-2px);
+    background: linear-gradient(to right, var(--orange-light), #fdba74);
+    transform: translateY(-2px) translateZ(0);
     box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2);
 }
 
@@ -1605,9 +1633,9 @@ body {
 }
 
 .form-group textarea:focus {
-    border-color: var(--orange-primary);
+    border-color: #3b82f6;
     outline: none;
-    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .toppings-footer {
@@ -1619,7 +1647,6 @@ body {
     position: absolute;
     bottom: 0;
     width: 100%;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .toppings-footer .btn-primary {
@@ -1704,18 +1731,19 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    transform: translateZ(0);
 }
 
 .close-reviews:hover {
     background: rgba(255, 255, 255, 0.2);
-    transform: scale(1.1);
+    transform: scale(1.1) translateZ(0);
 }
 
 .reviews-body {
     padding: 30px;
     max-height: calc(100vh - 200px);
     overflow-y: auto;
-    background: white;
+    background: #f8fafc; /* PERBAIKAN: Mengganti background putih dengan abu-abu muda */
 }
 
 .product-review-info {
@@ -1725,6 +1753,10 @@ body {
     margin-bottom: 30px;
     padding-bottom: 20px;
     border-bottom: 1px solid #e5e7eb;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .product-review-info img {
@@ -1746,6 +1778,9 @@ body {
     padding-bottom: 20px;
     border-bottom: 1px solid #e5e7eb;
     background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .add-review-section h4 {
@@ -1759,7 +1794,7 @@ body {
 }
 
 .add-review-section h4 i {
-    color: var(--orange-primary);
+    color: #f59e0b;
 }
 
 .rating-input {
@@ -1799,7 +1834,7 @@ body {
 }
 
 .form-group label i {
-    color: var(--orange-primary);
+    color: #f59e0b;
 }
 
 .form-group input,
@@ -1815,13 +1850,17 @@ body {
 
 .form-group input:focus,
 .form-group textarea:focus {
-    border-color: var(--orange-primary);
+    border-color: #3b82f6;
     outline: none;
-    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .all-reviews-section {
     margin-top: 30px;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .all-reviews-section h4 {
@@ -1835,23 +1874,24 @@ body {
 }
 
 .all-reviews-section h4 i {
-    color: var(--orange-primary);
+    color: #f59e0b;
 }
 
 .review-item {
     padding: 20px;
-    border: 2px solid var(--orange-light);
+    border: 2px solid #fef3c7;
     border-radius: 15px;
     margin-bottom: 15px;
-    background: linear-gradient(to right, #fff7ed, var(--orange-light));
+    background: linear-gradient(to right, #fefce8, #fef3c7);
     transition: all 0.3s ease;
     position: relative;
+    transform: translateZ(0);
 }
 
 .review-item:hover {
-    border-color: var(--orange-primary);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2);
+    border-color: #f59e0b;
+    transform: translateY(-2px) translateZ(0);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
 }
 
 .review-header {
@@ -1865,7 +1905,7 @@ body {
     font-weight: 600;
     margin-bottom: 5px;
     color: #1f2937;
-    background: linear-gradient(135deg, var(--orange-light), #fed7aa);
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
     padding: 8px 15px;
     border-radius: 8px;
     display: inline-block;
@@ -1941,6 +1981,7 @@ body {
     transition: all 0.3s ease;
     border: 1px solid rgba(0, 0, 0, 0.05);
     position: relative;
+    transform: translateZ(0);
 }
 
 .testimonial-card::before {
@@ -1955,7 +1996,7 @@ body {
 }
 
 .testimonial-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-8px) translateZ(0);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
 }
 
@@ -2164,11 +2205,12 @@ body {
     text-decoration: none;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    transform: translateZ(0);
 }
 
 .social-icon:hover {
     background: rgba(255, 255, 255, 0.25);
-    transform: translateY(-5px);
+    transform: translateY(-5px) translateZ(0);
     color: #f59e0b;
 }
 
@@ -2218,6 +2260,7 @@ body {
     opacity: 0;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
+    transform: translateZ(0);
 }
 
 .back-to-top.visible {
@@ -2225,7 +2268,7 @@ body {
 }
 
 .back-to-top:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px) translateZ(0);
     box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
 }
 
@@ -2288,10 +2331,11 @@ body {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
     border: 1px solid rgba(0, 0, 0, 0.05);
+    transform: translateZ(0);
 }
 
 .feature-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-10px) translateZ(0);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
@@ -2388,13 +2432,6 @@ body {
     to { transform: translateX(0); opacity: 1; }
 }
 
-/* Smooth Transitions for Cart and Toppings */
-.cart-sidebar,
-.toppings-modal,
-.reviews-modal {
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
 /* Responsive Design */
 @media (max-width: 1024px) {
     .hero-content {
@@ -2446,7 +2483,7 @@ body {
         position: fixed;
         top: 0;
         right: -100%;
-        width: 60%; /* PERBAIKAN: Menu sidebar 60% di Android */
+        width: 60%; /* PERBAIKAN: Lebar sidebar 60% */
         height: 100vh;
         background: white;
         flex-direction: column;
@@ -2604,7 +2641,8 @@ body {
     
     .toppings-body {
         padding: 25px 20px;
-        padding-bottom: 180px; /* Extra space for mobile scrolling */
+        max-height: calc(100vh - 250px); /* PERBAIKAN: Memberikan ruang untuk scroll */
+        overflow-y: auto;
     }
     
     .topping-options {
@@ -2717,7 +2755,6 @@ body {
     
     .toppings-body {
         padding: 20px 15px;
-        padding-bottom: 180px; /* Extra space for mobile scrolling */
     }
     
     .toppings-grid {
