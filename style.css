@@ -2790,3 +2790,17 @@ body {
         font-size: 0.7rem;
     }
 }
+
+/* === PERBAIKAN: Rapikan area bawah tombol "Kirim Ulasan" === */
+.add-review-section {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.reviews-body {
+    padding-bottom: 0 !important;
+}
+
+.reviews-modal-content {
+    padding-bottom: 0 !important;
+}
