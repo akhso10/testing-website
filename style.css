@@ -401,6 +401,10 @@ body {
     align-items: center;
 }
 
+.hero-text {
+    margin-top: 80px;
+}
+
 .hero-text h1 {
     font-size: 3.8rem;
     font-weight: 800;
