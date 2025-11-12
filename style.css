@@ -2804,3 +2804,12 @@ body {
 .reviews-modal-content {
     padding-bottom: 0 !important;
 }
+
+/* === PERBAIKAN: Tambah jarak antara Catatan Khusus dan tombol WhatsApp === */
+.form-group {
+    margin-bottom: 25px !important; /* jarak bawah antara catatan dan tombol */
+}
+
+.toppings-footer {
+    margin-top: 15px !important; /* beri sedikit ruang di atas tombol */
+}
