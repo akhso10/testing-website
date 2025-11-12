@@ -3,14 +3,14 @@ const products = [
     {
         id: 1,
         name: "Ciki citato lite",
-        category: "pedas",
+        category: "gurih",
         price: 7000,
         oldPrice: 12000,
         rating: 4.5,
         reviews: 128,
         description: "Ciki Citato Lite rasa original dengan kerenyahan khas yang bikin nagih. Cocok untuk menemani waktu santai, nonton, atau nongkrong bareng teman.",
         image: "ciki 1.jpg",
-        badge: "hot",
+        badge: "new",
         variants: [
             { name: "Pedas Biasa", price: 12000 },
             { name: "Pedas Extra", price: 15000 },
@@ -19,7 +19,7 @@ const products = [
     },
     {
         id: 2,
-        name: "Ciki citati mie goreng",
+        name: "Ciki citato mie goreng",
         category: "gurih",
         price: 8000,
         oldPrice: 13000,
@@ -187,6 +187,10 @@ let reviews = storage.get('productReviews') || {};
 let cart = storage.get('cart') || [];
 let selectedToppings = [];
 
+// Performance optimization variables
+let scrollTimeout;
+let resizeTimeout;
+
 // DOM Content Loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all functionality
@@ -205,7 +209,64 @@ document.addEventListener('DOMContentLoaded', function() {
     initViewMore();
     initProductSocialActions();
     initReviewsModal();
+    
+    // Performance optimizations
+    initPerformanceOptimizations();
 });
+
+// Performance Optimizations
+function initPerformanceOptimizations() {
+    // Debounced scroll handler
+    window.addEventListener('scroll', function() {
+        if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
+        }
+        scrollTimeout = setTimeout(handleScroll, 10);
+    });
+    
+    // Debounced resize handler
+    window.addEventListener('resize', function() {
+        if (resizeTimeout) {
+            clearTimeout(resizeTimeout);
+        }
+        resizeTimeout = setTimeout(handleResize, 100);
+    });
+    
+    // Preload critical images
+    preloadCriticalImages();
+}
+
+function handleScroll() {
+    // Handle scroll-based animations efficiently
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        if (window.pageYOffset > 300) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+    }
+}
+
+function handleResize() {
+    // Handle resize events efficiently
+    // Any resize-specific logic can go here
+}
+
+function preloadCriticalImages() {
+    // Preload critical images for better performance
+    const criticalImages = [
+        'logo.jpg',
+        'ciki 1.jpg',
+        'ciki 2.png',
+        'ciki 3.jpg'
+    ];
+    
+    criticalImages.forEach(src => {
+        const img = new Image();
+        img.src = src;
+    });
+}
 
 // Render Products
 function renderProducts(limit = null) {
@@ -242,7 +303,7 @@ function createProductCard(product) {
     card.innerHTML = `
         <div class="product-image">
             <div class="image-container ${getRandomColor()}">
-                <img alt="${product.name}" src="${product.image}" onerror="this.src='images/Coming Soon.jpeg'"/>
+                <img alt="${product.name}" src="${product.image}" loading="lazy" onerror="this.src='images/Coming Soon.jpeg'"/>
             </div>
             ${badgeHTML}
             <div class="product-overlay">
@@ -626,7 +687,7 @@ function initCart() {
         });
     }
     
-    // Add to cart functionality with smooth animation
+    // Add to cart functionality
     document.addEventListener('click', function(e) {
         if (e.target.closest('.add-to-cart') || e.target.closest('.add-to-cart-btn')) {
             const button = e.target.closest('.add-to-cart') || e.target.closest('.add-to-cart-btn');
@@ -634,12 +695,6 @@ function initCart() {
             const productId = button.getAttribute('data-id');
             const productName = button.getAttribute('data-product');
             const productPrice = parseInt(button.getAttribute('data-price'));
-            
-            // Smooth animation effect
-            button.style.transform = 'scale(0.9)';
-            setTimeout(() => {
-                button.style.transform = 'scale(1)';
-            }, 200);
             
             // Check if product already in cart
             const existingItem = cart.find(item => item.id === productId);
@@ -671,10 +726,7 @@ function initCart() {
             }
             
             closeCartSidebar();
-            // Smooth transition to toppings modal
-            setTimeout(() => {
-                openToppingsModal();
-            }, 300);
+            openToppingsModal();
         });
     }
     
