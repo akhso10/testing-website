@@ -1553,7 +1553,6 @@ body {
     color: var(--orange-primary);
 }
 
-/* PERBAIKAN: Mempercantik tabel topping dengan warna orange */
 .topping-options {
     display: grid;
     grid-template-columns: 1fr;
@@ -1747,7 +1746,7 @@ body {
     padding: 30px;
     max-height: calc(100vh - 200px);
     overflow-y: auto;
-    background: #f8fafc; /* PERBAIKAN: Mengganti background putih dengan abu-abu muda */
+    background: #f8fafc;
 }
 
 .product-review-info {
@@ -2487,7 +2486,7 @@ body {
         position: fixed;
         top: 0;
         right: -100%;
-        width: 60%; /* PERBAIKAN: Lebar sidebar 60% */
+        width: 60%;
         height: 100vh;
         background: white;
         flex-direction: column;
@@ -2645,7 +2644,7 @@ body {
     
     .toppings-body {
         padding: 25px 20px;
-        max-height: calc(100vh - 250px); /* PERBAIKAN: Memberikan ruang untuk scroll */
+        max-height: calc(100vh - 250px);
         overflow-y: auto;
     }
     
@@ -2789,13 +2788,4 @@ body {
         height: 18px;
         font-size: 0.7rem;
     }
-}
-
-/* === PERBAIKAN: Tambah jarak antara Catatan Khusus dan tombol WhatsApp === */
-.form-group {
-    margin-bottom: 35px !important; /* jarak bawah antara catatan dan tombol */
-}
-
-.toppings-footer {
-    margin-top: 15px !important; /* beri sedikit ruang di atas tombol */
 }
