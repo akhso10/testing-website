@@ -1,1154 +1,860 @@
-// Enhanced Backend System
-class MixCrunchBackend {
+// Product Data
+const products = [
+    {
+        id: 1,
+        name: "Ciki citato lite",
+        category: "gurih",
+        price: 7000,
+        oldPrice: 12000,
+        rating: 4.5,
+        reviews: 128,
+        description: "Ciki Citato Lite rasa original dengan kerenyahan khas yang bikin nagih. Cocok untuk menemani waktu santai, nonton, atau nongkrong bareng teman.",
+        image: "ciki 1.jpg",
+        badge: "new",
+        variants: [
+            { name: "Pedas Biasa", price: 12000 },
+            { name: "Pedas Extra", price: 15000 },
+            { name: "Pedas Level 10", price: 18000 }
+        ]
+    },
+    {
+        id: 2,
+        name: "Ciki citato mie goreng",
+        category: "gurih",
+        price: 8000,
+        oldPrice: 13000,
+        rating: 4.8,
+        reviews: 95,
+        description: "Ciki Citato Lite rasa Mie Goreng — kombinasi gurih, asin, dan sedikit manis yang mirip mie goreng legendaris. Kerenyahan maksimal dengan aroma khas yang bikin lapar terus.",
+        image: "ciki 2.png",
+        badge: "new",
+        variants: [
+            { name: "Keju Original", price: 13000 },
+            { name: "Keju Extra", price: 16000 },
+            { name: "Keju Premium", price: 19000 }
+        ]
+    },
+    {
+        id: 3,
+        name: "Ciki lays rumput laut",
+        category: "gurih",
+        price: 6000,
+        oldPrice: 11000,
+        rating: 4.3,
+        reviews: 76,
+        description: "Lays Rumput Laut menghadirkan kerenyahan kentang pilihan dengan balutan bumbu rumput laut yang gurih dan aromatik. Setiap gigitan memberikan rasa laut yang khas dan bikin nagih.",
+        image: "ciki 3.jpg",
+        variants: [
+            { name: "Jagung Bakar Original", price: 11000 },
+            { name: "Jagung Bakar Pedas", price: 13000 }
+        ]
+    },
+    {
+        id: 4,
+        name: "Ciki doritos",
+        category: "pedas",
+        price: 9500,
+        oldPrice: 14000,
+        rating: 4.6,
+        reviews: 112,
+        description: "Doritos Jagung Bakar menghadirkan sensasi renyah khas tortilla chips berpadu dengan rasa jagung bakar yang gurih, manis, dan sedikit smoky. Camilan favorit yang bikin susah berhenti ngemil.",
+        image: "ciki 4.jpg",
+        badge: "hot",
+        variants: [
+            { name: "Balado Original", price: 12500 },
+            { name: "Balado Extra Pedas", price: 15000 }
+        ]
+    },
+    {
+        id: 5,
+        name: "Ciki japota rumput laut ",
+        category: "gurih",
+        price: 6000,
+        oldPrice: 12000,
+        rating: 4.4,
+        reviews: 88,
+        description: "japota Rumput Laut hadir dengan potongan kentang super renyah dan bumbu rumput laut asli yang gurih serta aromatik. Setiap gigitan bikin kamu serasa ngemil di pinggir pantai Jepang.",
+        image: "ciki 5.jpg",
+        variants: [
+            { name: "BBQ Original", price: 14000 },
+            { name: "BBQ Spicy", price: 16000 }
+        ]
+    },
+    {
+        id: 6,
+        name: "Ciki japota ayam bawang",
+        category: "gurih",
+        price: 7500,
+        oldPrice: 13000,
+        rating: 4.7,
+        reviews: 134,
+        description: "Japota Ayam Bawang menghadirkan kelezatan rasa ayam gurih berpadu aroma bawang yang harum menggoda. Renyahnya kentang Japota membuat rasa klasik ini terasa makin istimewa di setiap gigitan.",
+        image: "ciki 6.jpg",
+        badge: "new",
+        variants: [
+            { name: "Rumput Laut Original", price: 15000 },
+            { name: "Rumput Laut Pedas", price: 17000 }
+        ]
+    },
+    {
+        id: 7,
+        name: "Ciki japota Sapi Panggang",
+        category: "spesial",
+        price: 7500,
+        oldPrice: 1200,
+        rating: 4.9,
+        reviews: 67,
+        description: "Japota Sapi Panggang menawarkan rasa daging sapi panggang premium dengan aroma smoky yang khas. Kentangnya tebal, gurih, dan renyah — bikin setiap gigitan terasa seperti makan steak mini.",
+        image: "ciki 10.jpg",
+        badge: "new",
+        variants: [
+            { name: "Sapi Panggang Original", price: 18000 },
+            { name: "Sapi Panggang Black Pepper", price: 20000 }
+        ]
+    },
+    {
+        id: 8,
+        name: "Ciki twist jagung bakar",
+        category: "spesial",
+        price: 6500,
+        oldPrice: 12500,
+        rating: 4.5,
+        reviews: 91,
+        description: "Ciki Twist Jagung Bakar menghadirkan sensasi gurih dan manis dari jagung bakar khas Indonesia. Teksturnya ringan, renyah, dan bikin susah berhenti ngemil. Cocok untuk semua suasana.",
+        image: "ciki 11.jpg",
+        variants: [
+            { name: "Ayam Bakar Original", price: 16000 },
+            { name: "Ayam Bakar Madu", price: 18000 }
+        ]
+    }
+];
+
+// Enhanced LocalStorage Management
+class StorageManager {
     constructor() {
-        this.baseURL = 'https://api.mixncrunch.id/v1';
-        this.localStorageKey = 'mixncrunch_';
-        this.initializeBackend();
+        this.storageKey = 'mixncrunch_';
     }
-
-    initializeBackend() {
-        // Initialize API endpoints simulation
-        this.endpoints = {
-            products: `${this.baseURL}/products`,
-            reviews: `${this.baseURL}/reviews`,
-            orders: `${this.baseURL}/orders`,
-            analytics: `${this.baseURL}/analytics`
-        };
-        
-        // Initialize real-time features
-        this.initializeRealTimeFeatures();
-    }
-
-    // Real-time features initialization
-    initializeRealTimeFeatures() {
-        // Simulate real-time updates
-        setInterval(() => {
-            this.updateLiveStats();
-        }, 30000); // Update every 30 seconds
-    }
-
-    // Product Management
-    async getProducts() {
-        try {
-            // Simulate API call
-            const response = await this.simulateAPICall('GET', this.endpoints.products);
-            return response.data || this.getDefaultProducts();
-        } catch (error) {
-            console.warn('API offline, using local data:', error);
-            return this.getDefaultProducts();
-        }
-    }
-
-    async addProductReview(productId, reviewData) {
-        try {
-            const response = await this.simulateAPICall('POST', 
-                `${this.endpoints.reviews}/${productId}`, 
-                reviewData
-            );
-            
-            // Update local storage
-            this.updateLocalReviews(productId, reviewData);
-            
-            // Send to analytics
-            this.trackReviewAnalytics(productId, reviewData.rating);
-            
-            return response;
-        } catch (error) {
-            console.warn('Review submission failed, saving locally:', error);
-            this.updateLocalReviews(productId, reviewData);
-            return { success: true, message: 'Review saved locally' };
-        }
-    }
-
-    // Order Management
-    async createOrder(orderData) {
-        try {
-            const response = await this.simulateAPICall('POST', this.endpoints.orders, orderData);
-            
-            // Track order analytics
-            this.trackOrderAnalytics(orderData);
-            
-            return response;
-        } catch (error) {
-            console.warn('Order creation failed, saving locally:', error);
-            this.saveOrderLocally(orderData);
-            return { 
-                success: true, 
-                message: 'Order saved locally',
-                orderId: this.generateOrderId() 
-            };
-        }
-    }
-
-    // Analytics Tracking
-    trackProductView(productId) {
-        const analyticsData = {
-            type: 'product_view',
-            productId: productId,
-            timestamp: new Date().toISOString(),
-            userAgent: navigator.userAgent
-        };
-        
-        this.sendAnalytics(analyticsData);
-    }
-
-    trackAddToCart(productId, quantity) {
-        const analyticsData = {
-            type: 'add_to_cart',
-            productId: productId,
-            quantity: quantity,
-            timestamp: new Date().toISOString()
-        };
-        
-        this.sendAnalytics(analyticsData);
-    }
-
-    // Local Storage Management with Enhanced Features
-    set(key, value) {
-        try {
-            const data = {
-                value: value,
-                timestamp: new Date().toISOString(),
-                version: '1.0'
-            };
-            localStorage.setItem(this.localStorageKey + key, JSON.stringify(data));
-            return true;
-        } catch (error) {
-            console.error('LocalStorage set error:', error);
-            return false;
-        }
-    }
-
+    
     get(key) {
         try {
-            const item = localStorage.getItem(this.localStorageKey + key);
-            if (!item) return null;
-            
-            const data = JSON.parse(item);
-            
-            // Check if data is expired (24 hours for demo)
-            const expiryTime = 24 * 60 * 60 * 1000; // 24 hours
-            const storedTime = new Date(data.timestamp).getTime();
-            if (Date.now() - storedTime > expiryTime) {
-                this.remove(key);
-                return null;
-            }
-            
-            return data.value;
+            const item = localStorage.getItem(this.storageKey + key);
+            return item ? JSON.parse(item) : null;
         } catch (error) {
-            console.error('LocalStorage get error:', error);
+            console.error('Error getting from localStorage:', error);
             return null;
         }
     }
-
-    // Utility Methods
-    simulateAPICall(method, url, data = null) {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                // Simulate 90% success rate
-                if (Math.random() > 0.1) {
-                    resolve({
-                        success: true,
-                        data: data,
-                        message: `${method} request to ${url} successful`
-                    });
-                } else {
-                    reject(new Error('API simulation error'));
-                }
-            }, 500 + Math.random() * 1000); // Random delay between 500-1500ms
-        });
-    }
-
-    updateLocalReviews(productId, reviewData) {
-        const reviews = this.get('productReviews') || {};
-        if (!reviews[productId]) {
-            reviews[productId] = [];
+    
+    set(key, value) {
+        try {
+            localStorage.setItem(this.storageKey + key, JSON.stringify(value));
+            return true;
+        } catch (error) {
+            console.error('Error setting localStorage:', error);
+            return false;
         }
-        
-        reviews[productId].push({
-            ...reviewData,
-            id: this.generateId(),
-            date: new Date().toLocaleDateString('id-ID'),
-            verified: false // Local reviews are not verified
-        });
-        
-        this.set('productReviews', reviews);
     }
-
-    generateId() {
-        return Date.now().toString(36) + Math.random().toString(36).substr(2);
+    
+    remove(key) {
+        try {
+            localStorage.removeItem(this.storageKey + key);
+            return true;
+        } catch (error) {
+            console.error('Error removing from localStorage:', error);
+            return false;
+        }
     }
-
-    generateOrderId() {
-        return 'ORD_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9).toUpperCase();
-    }
-
-    getDefaultProducts() {
-        return [
-            {
-                id: 1,
-                name: "Ciki citato lite",
-                category: "gurih",
-                price: 7000,
-                oldPrice: 12000,
-                rating: 4.5,
-                reviews: 128,
-                description: "Ciki Citato Lite rasa original dengan kerenyahan khas yang bikin nagih. Cocok untuk menemani waktu santai, nonton, atau nongkrong bareng teman.",
-                image: "ciki 1.jpg",
-                badge: "new",
-                variants: [
-                    { name: "Pedas Biasa", price: 12000 },
-                    { name: "Pedas Extra", price: 15000 },
-                    { name: "Pedas Level 10", price: 18000 }
-                ]
-            },
-            {
-                id: 2,
-                name: "Ciki citato mie goreng",
-                category: "gurih",
-                price: 8000,
-                oldPrice: 13000,
-                rating: 4.8,
-                reviews: 95,
-                description: "Ciki Citato Lite rasa Mie Goreng — kombinasi gurih, asin, dan sedikit manis yang mirip mie goreng legendaris. Kerenyahan maksimal dengan aroma khas yang bikin lapar terus.",
-                image: "ciki 2.png",
-                badge: "new",
-                variants: [
-                    { name: "Keju Original", price: 13000 },
-                    { name: "Keju Extra", price: 16000 },
-                    { name: "Keju Premium", price: 19000 }
-                ]
-            },
-            {
-                id: 3,
-                name: "Ciki lays rumput laut",
-                category: "gurih",
-                price: 6000,
-                oldPrice: 11000,
-                rating: 4.3,
-                reviews: 76,
-                description: "Lays Rumput Laut menghadirkan kerenyahan kentang pilihan dengan balutan bumbu rumput laut yang gurih dan aromatik. Setiap gigitan memberikan rasa laut yang khas dan bikin nagih.",
-                image: "ciki 3.jpg",
-                variants: [
-                    { name: "Jagung Bakar Original", price: 11000 },
-                    { name: "Jagung Bakar Pedas", price: 13000 }
-                ]
-            },
-            {
-                id: 4,
-                name: "Ciki doritos",
-                category: "pedas",
-                price: 9500,
-                oldPrice: 14000,
-                rating: 4.6,
-                reviews: 112,
-                description: "Doritos Jagung Bakar menghadirkan sensasi renyah khas tortilla chips berpadu dengan rasa jagung bakar yang gurih, manis, dan sedikit smoky. Camilan favorit yang bikin susah berhenti ngemil.",
-                image: "ciki 4.jpg",
-                badge: "hot",
-                variants: [
-                    { name: "Balado Original", price: 12500 },
-                    { name: "Balado Extra Pedas", price: 15000 }
-                ]
-            },
-            {
-                id: 5,
-                name: "Ciki japota rumput laut ",
-                category: "gurih",
-                price: 6000,
-                oldPrice: 12000,
-                rating: 4.4,
-                reviews: 88,
-                description: "japota Rumput Laut hadir dengan potongan kentang super renyah dan bumbu rumput laut asli yang gurih serta aromatik. Setiap gigitan bikin kamu serasa ngemil di pinggir pantai Jepang.",
-                image: "ciki 5.jpg",
-                variants: [
-                    { name: "BBQ Original", price: 14000 },
-                    { name: "BBQ Spicy", price: 16000 }
-                ]
-            },
-            {
-                id: 6,
-                name: "Ciki japota ayam bawang",
-                category: "gurih",
-                price: 7500,
-                oldPrice: 13000,
-                rating: 4.7,
-                reviews: 134,
-                description: "Japota Ayam Bawang menghadirkan kelezatan rasa ayam gurih berpadu aroma bawang yang harum menggoda. Renyahnya kentang Japota membuat rasa klasik ini terasa makin istimewa di setiap gigitan.",
-                image: "ciki 6.jpg",
-                badge: "new",
-                variants: [
-                    { name: "Rumput Laut Original", price: 15000 },
-                    { name: "Rumput Laut Pedas", price: 17000 }
-                ]
-            },
-            {
-                id: 7,
-                name: "Ciki japota Sapi Panggang",
-                category: "spesial",
-                price: 7500,
-                oldPrice: 1200,
-                rating: 4.9,
-                reviews: 67,
-                description: "Japota Sapi Panggang menawarkan rasa daging sapi panggang premium dengan aroma smoky yang khas. Kentangnya tebal, gurih, dan renyah — bikin setiap gigitan terasa seperti makan steak mini.",
-                image: "ciki 10.jpg",
-                badge: "new",
-                variants: [
-                    { name: "Sapi Panggang Original", price: 18000 },
-                    { name: "Sapi Panggang Black Pepper", price: 20000 }
-                ]
-            },
-            {
-                id: 8,
-                name: "Ciki twist jagung bakar",
-                category: "spesial",
-                price: 6500,
-                oldPrice: 12500,
-                rating: 4.5,
-                reviews: 91,
-                description: "Ciki Twist Jagung Bakar menghadirkan sensasi gurih dan manis dari jagung bakar khas Indonesia. Teksturnya ringan, renyah, dan bikin susah berhenti ngemil. Cocok untuk semua suasana.",
-                image: "ciki 11.jpg",
-                variants: [
-                    { name: "Ayam Bakar Original", price: 16000 },
-                    { name: "Ayam Bakar Madu", price: 18000 }
-                ]
-            }
-        ];
-    }
-
-    // Analytics methods
-    sendAnalytics(data) {
-        // In a real app, this would send to your analytics service
-        console.log('Analytics Event:', data);
-        
-        // Store locally for batch processing
-        const analyticsQueue = this.get('analyticsQueue') || [];
-        analyticsQueue.push(data);
-        this.set('analyticsQueue', analyticsQueue.slice(-100)); // Keep last 100 events
-    }
-
-    trackReviewAnalytics(productId, rating) {
-        this.sendAnalytics({
-            type: 'review_submitted',
-            productId: productId,
-            rating: rating,
-            timestamp: new Date().toISOString()
-        });
-    }
-
-    trackOrderAnalytics(orderData) {
-        this.sendAnalytics({
-            type: 'order_created',
-            orderId: orderData.orderId,
-            total: orderData.total,
-            itemCount: orderData.items.length,
-            timestamp: new Date().toISOString()
-        });
-    }
-
-    updateLiveStats() {
-        // Update live visitor count, sales stats, etc.
-        const stats = {
-            liveVisitors: Math.floor(Math.random() * 50) + 10,
-            todayOrders: Math.floor(Math.random() * 20) + 5,
-            totalRevenue: Math.floor(Math.random() * 5000000) + 1000000
-        };
-        
-        // Could update a live stats display if needed
-        console.log('Live Stats Updated:', stats);
-    }
-
-    saveOrderLocally(orderData) {
-        const localOrders = this.get('pendingOrders') || [];
-        localOrders.push({
-            ...orderData,
-            localId: this.generateId(),
-            status: 'pending',
-            createdAt: new Date().toISOString()
-        });
-        this.set('pendingOrders', localOrders);
+    
+    clear() {
+        try {
+            const keys = Object.keys(localStorage).filter(key => key.startsWith(this.storageKey));
+            keys.forEach(key => localStorage.removeItem(key));
+            return true;
+        } catch (error) {
+            console.error('Error clearing localStorage:', error);
+            return false;
+        }
     }
 }
 
-// Initialize Backend
-const backend = new MixCrunchBackend();
+// Initialize storage manager
+const storage = new StorageManager();
 
-// Enhanced Frontend Application
-class MixCrunchApp {
-    constructor() {
-        this.backend = backend;
-        this.products = [];
-        this.cart = [];
-        this.reviews = {};
-        this.selectedToppings = [];
-        this.currentProductId = null;
-        
-        this.initializeApp();
+// Reviews Data (stored in localStorage)
+let reviews = storage.get('productReviews') || {};
+
+// Cart Data
+let cart = storage.get('cart') || [];
+let selectedToppings = [];
+
+// Performance optimization variables
+let scrollTimeout;
+let resizeTimeout;
+
+// DOM Content Loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all functionality
+    initNavbar();
+    initSlider();
+    initCart();
+    initProductFilters();
+    initToppingsModal();
+    initFAQ();
+    initBackToTop();
+    initPromoTimer();
+    initSmoothScroll();
+    initWhatsAppOrders();
+    initScrollAnimations();
+    renderProducts(3); // Show only 3 products initially
+    initViewMore();
+    initProductSocialActions();
+    initReviewsModal();
+    
+    // Performance optimizations
+    initPerformanceOptimizations();
+});
+
+// Performance Optimizations
+function initPerformanceOptimizations() {
+    // Debounced scroll handler
+    window.addEventListener('scroll', function() {
+        if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
+        }
+        scrollTimeout = setTimeout(handleScroll, 10);
+    });
+    
+    // Debounced resize handler
+    window.addEventListener('resize', function() {
+        if (resizeTimeout) {
+            clearTimeout(resizeTimeout);
+        }
+        resizeTimeout = setTimeout(handleResize, 100);
+    });
+    
+    // Preload critical images
+    preloadCriticalImages();
+}
+
+function handleScroll() {
+    // Handle scroll-based animations efficiently
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        if (window.pageYOffset > 300) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
     }
+}
 
-    async initializeApp() {
-        try {
-            // Load initial data
-            await this.loadInitialData();
+function handleResize() {
+    // Handle resize events efficiently
+    // Any resize-specific logic can go here
+}
+
+function preloadCriticalImages() {
+    // Preload critical images for better performance
+    const criticalImages = [
+        'logo.jpg',
+        'ciki 1.jpg',
+        'ciki 2.png',
+        'ciki 3.jpg'
+    ];
+    
+    criticalImages.forEach(src => {
+        const img = new Image();
+        img.src = src;
+    });
+}
+
+// Render Products
+function renderProducts(limit = null) {
+    const productContainer = document.getElementById('product-container');
+    if (!productContainer) return;
+    
+    productContainer.innerHTML = '';
+    
+    const productsToShow = limit ? products.slice(0, limit) : products;
+    
+    productsToShow.forEach(product => {
+        const productCard = createProductCard(product);
+        productContainer.appendChild(productCard);
+    });
+}
+
+// Create Product Card
+function createProductCard(product) {
+    const card = document.createElement('div');
+    card.className = `product-card ${product.comingSoon ? 'coming-soon' : ''}`;
+    card.setAttribute('data-category', product.category);
+    
+    const badgeHTML = product.badge ? `<div class="product-badge ${product.badge}">${product.badge === 'hot' ? 'HOT' : 'BARU'}</div>` : '';
+    
+    // Calculate average rating from reviews
+    const productReviews = reviews[product.id] || [];
+    const averageRating = productReviews.length > 0 
+        ? productReviews.reduce((sum, review) => sum + review.rating, 0) / productReviews.length
+        : product.rating;
+    
+    const starsHTML = generateStars(averageRating);
+    const reviewCount = productReviews.length || product.reviews;
+    
+    card.innerHTML = `
+        <div class="product-image">
+            <div class="image-container ${getRandomColor()}">
+                <img alt="${product.name}" src="${product.image}" loading="lazy" onerror="this.src='images/Coming Soon.jpeg'"/>
+            </div>
+            ${badgeHTML}
+            <div class="product-overlay">
+                <button class="quick-add-btn add-to-cart" data-id="${product.id}" data-price="${product.price}" data-product="${product.name}">
+                    <i class="fas fa-shopping-cart"></i>
+                </button>
+            </div>
+        </div>
+        <div class="product-info">
+            <h3>${product.name}</h3>
+            <div class="product-rating">
+                <div class="stars">
+                    ${starsHTML}
+                </div>
+                <span class="review-count">(${reviewCount} ulasan)</span>
+            </div>
+            <p>${product.description}</p>
+            <div class="product-footer">
+                <div class="price">
+                    <span class="current-price">Rp ${product.price.toLocaleString('id-ID')}</span>
+                    <span class="old-price">Rp ${product.oldPrice.toLocaleString('id-ID')}</span>
+                </div>
+                <div class="product-actions">
+                    <button class="add-to-cart-btn" data-id="${product.id}" data-price="${product.price}" data-product="${product.name}">
+                        <i class="fas fa-shopping-cart"></i>
+                        Keranjang
+                    </button>
+                    <button class="whatsapp-order-btn" data-id="${product.id}" data-price="${product.price}" data-product="${product.name}">
+                        <i class="fab fa-whatsapp"></i>
+                        Pesan
+                    </button>
+                </div>
+            </div>
+            <div class="product-social-actions">
+                <button class="social-action-btn reviews-btn" data-id="${product.id}">
+                    <i class="fas fa-star"></i>
+                    <span>Ulasan</span>
+                </button>
+                <button class="social-action-btn like-btn" data-id="${product.id}">
+                    <i class="far fa-heart"></i>
+                    <span>Suka</span>
+                </button>
+                <button class="social-action-btn share-btn" data-id="${product.id}">
+                    <i class="fas fa-share-alt"></i>
+                    <span>Bagikan</span>
+                </button>
+            </div>
+        </div>
+    `;
+    
+    return card;
+}
+
+// Initialize Product Social Actions
+function initProductSocialActions() {
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.like-btn')) {
+            const button = e.target.closest('.like-btn');
+            const icon = button.querySelector('i');
+            const text = button.querySelector('span');
             
-            // Initialize all components
-            this.initializeComponents();
+            if (icon.classList.contains('far')) {
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+                button.classList.add('liked');
+                text.textContent = 'Disukai';
+                showSocialNotification('Produk berhasil ditambahkan ke favorit!');
+            } else {
+                icon.classList.remove('fas');
+                icon.classList.add('far');
+                button.classList.remove('liked');
+                text.textContent = 'Suka';
+                showSocialNotification('Produk dihapus dari favorit!');
+            }
+        }
+        
+        if (e.target.closest('.reviews-btn')) {
+            const button = e.target.closest('.reviews-btn');
+            const productId = button.getAttribute('data-id');
+            openReviewsModal(productId);
+        }
+        
+        if (e.target.closest('.share-btn')) {
+            const button = e.target.closest('.share-btn');
+            const productId = button.getAttribute('data-id');
+            const product = products.find(p => p.id == productId);
             
-            // Start background services
-            this.startBackgroundServices();
-            
-            console.log('Mix & Crunch App initialized successfully');
-        } catch (error) {
-            console.error('App initialization failed:', error);
-            this.initializeFallback();
-        }
-    }
-
-    async loadInitialData() {
-        // Load products from backend
-        this.products = await this.backend.getProducts();
-        
-        // Load cart from localStorage
-        this.cart = this.backend.get('cart') || [];
-        
-        // Load reviews from backend/localStorage
-        this.reviews = this.backend.get('productReviews') || {};
-        
-        // Track app load
-        this.backend.trackAppLoad();
-    }
-
-    initializeComponents() {
-        this.initializeNavbar();
-        this.initializeSlider();
-        this.initializeCart();
-        this.initializeProductFilters();
-        this.initializeToppingsModal();
-        this.initializeFAQ();
-        this.initializeBackToTop();
-        this.initializePromoTimer();
-        this.initializeSmoothScroll();
-        this.initializeWhatsAppOrders();
-        this.initializeScrollAnimations();
-        this.initializeViewMore();
-        this.initializeProductSocialActions();
-        this.initializeReviewsModal();
-        this.initializePerformanceOptimizations();
-        
-        // Render initial products
-        this.renderProducts(3);
-    }
-
-    // Enhanced Toppings Modal with Page Transition Animation
-    initializeToppingsModal() {
-        const toppingsModal = document.getElementById('toppings-modal');
-        const closeToppings = document.querySelector('.close-toppings');
-        const cancelToppings = document.getElementById('cancel-toppings');
-        const confirmToppings = document.getElementById('confirm-toppings');
-
-        // Open toppings modal with enhanced animation
-        window.openToppingsModal = () => {
-            if (toppingsModal) {
-                // Add pre-open class for initial state
-                toppingsModal.classList.add('pre-open');
+            if (product && navigator.share) {
+                navigator.share({
+                    title: product.name,
+                    text: product.description,
+                    url: window.location.href + '#produk'
+                }).then(() => {
+                    showSocialNotification('Produk berhasil dibagikan!');
+                }).catch(err => {
+                    console.log('Error sharing:', err);
+                });
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                const url = window.location.href + '#produk';
+                const text = `Lihat ${product.name} di Mix & Crunch: ${product.description}`;
                 
-                setTimeout(() => {
-                    toppingsModal.classList.remove('pre-open');
-                    toppingsModal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                    
-                    // Reset form
-                    document.getElementById('custom-toppings').value = '';
-                    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-                        checkbox.checked = false;
-                    });
-                    this.selectedToppings = [];
-                    
-                    // Add entrance animation
-                    this.animateModalEntrance(toppingsModal);
-                }, 50);
-            }
-        };
-
-        // Enhanced close function
-        const closeToppingsModal = () => {
-            if (toppingsModal) {
-                toppingsModal.classList.add('closing');
-                
-                setTimeout(() => {
-                    toppingsModal.classList.remove('active', 'closing');
-                    document.body.style.overflow = '';
-                }, 400);
-            }
-        };
-
-        if (closeToppings) {
-            closeToppings.addEventListener('click', closeToppingsModal);
-        }
-
-        if (cancelToppings) {
-            cancelToppings.addEventListener('click', closeToppingsModal);
-        }
-
-        // Handle topping selection with enhanced UX
-        document.addEventListener('change', (e) => {
-            if (e.target.type === 'checkbox' && e.target.name) {
-                const toppingName = e.target.value;
-                const toppingElement = e.target.closest('.topping-option');
-                
-                // Add selection animation
-                if (e.target.checked) {
-                    toppingElement.classList.add('selected');
-                    this.selectedToppings.push({ name: toppingName });
-                    
-                    // Add subtle bounce effect
-                    toppingElement.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        toppingElement.style.transform = 'scale(1)';
-                    }, 150);
-                } else {
-                    toppingElement.classList.remove('selected');
-                    this.selectedToppings = this.selectedToppings.filter(topping => topping.name !== toppingName);
-                }
-                
-                // Update selection counter
-                this.updateToppingSelectionCounter();
-            }
-        });
-
-        // Enhanced confirm toppings with validation
-        if (confirmToppings) {
-            confirmToppings.addEventListener('click', () => {
-                const customToppings = document.getElementById('custom-toppings').value.trim();
-                
-                if (this.selectedToppings.length === 0) {
-                    this.showValidationError('Silakan pilih minimal satu topping sebelum melanjutkan!');
-                    return;
-                }
-                
-                // Add loading state
-                confirmToppings.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
-                confirmToppings.disabled = true;
-                
-                setTimeout(() => {
-                    this.sendOrderToWhatsApp(this.selectedToppings, customToppings);
-                    closeToppingsModal();
-                    
-                    // Reset button state
-                    setTimeout(() => {
-                        confirmToppings.innerHTML = '<i class="fab fa-whatsapp"></i> Pesan via WhatsApp';
-                        confirmToppings.disabled = false;
-                    }, 1000);
-                }, 1000);
-            });
-        }
-    }
-
-    // Enhanced Reviews Modal with Better UX
-    initializeReviewsModal() {
-        const reviewsModal = document.getElementById('reviews-modal');
-        const closeReviews = document.querySelector('.close-reviews');
-
-        // Enhanced close function
-        const closeReviewsModal = () => {
-            if (reviewsModal) {
-                reviewsModal.classList.add('closing');
-                
-                setTimeout(() => {
-                    reviewsModal.classList.remove('active', 'closing');
-                    document.body.style.overflow = '';
-                }, 400);
-            }
-        };
-
-        if (closeReviews) {
-            closeReviews.addEventListener('click', closeReviewsModal);
-        }
-
-        // Enhanced star rating with hover effects
-        document.addEventListener('mouseover', (e) => {
-            if (e.target.closest('.star-rating i')) {
-                const star = e.target.closest('.star-rating i');
-                const rating = parseInt(star.getAttribute('data-rating'));
-                const stars = document.querySelectorAll('.star-rating i');
-                
-                stars.forEach((s, index) => {
-                    if (index < rating) {
-                        s.classList.add('hover');
-                    } else {
-                        s.classList.remove('hover');
-                    }
+                // Copy to clipboard
+                navigator.clipboard.writeText(text + ' ' + url).then(() => {
+                    showSocialNotification('Tautan produk berhasil disalin!');
+                }).catch(err => {
+                    console.log('Error copying:', err);
                 });
             }
-        });
-
-        document.addEventListener('mouseout', (e) => {
-            if (e.target.closest('.star-rating')) {
-                const stars = document.querySelectorAll('.star-rating i');
-                stars.forEach(star => star.classList.remove('hover'));
-            }
-        });
-
-        // Enhanced review submission
-        const submitReview = document.getElementById('submit-review');
-        if (submitReview) {
-            submitReview.addEventListener('click', async () => {
-                const productId = this.currentProductId;
-                const reviewerName = document.getElementById('reviewer-name').value.trim();
-                const reviewComment = document.getElementById('review-comment').value.trim();
-                const activeStars = document.querySelectorAll('.star-rating i.active');
-                const rating = activeStars.length;
-
-                if (!reviewerName || !reviewComment || rating === 0) {
-                    this.showValidationError('Silakan isi semua field dan berikan rating!');
-                    return;
-                }
-
-                // Add loading state
-                submitReview.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
-                submitReview.disabled = true;
-
-                const reviewData = {
-                    name: reviewerName,
-                    rating: rating,
-                    comment: reviewComment,
-                    date: new Date().toLocaleDateString('id-ID')
-                };
-
-                try {
-                    await this.backend.addProductReview(productId, reviewData);
-                    
-                    // Update UI
-                    this.displayProductReviews(productId);
-                    this.updateProductRating(productId);
-                    
-                    // Reset form
-                    document.getElementById('reviewer-name').value = '';
-                    document.getElementById('review-comment').value = '';
-                    const stars = document.querySelectorAll('.star-rating i');
-                    stars.forEach(star => {
-                        star.classList.remove('active');
-                        star.classList.remove('fas');
-                        star.classList.add('far');
-                    });
-                    
-                    // Show success
-                    this.showSocialNotification('Ulasan berhasil ditambahkan!');
-                    
-                } catch (error) {
-                    this.showSocialNotification('Ulasan berhasil disimpan secara lokal!');
-                } finally {
-                    // Reset button state
-                    submitReview.innerHTML = '<i class="fas fa-paper-plane"></i> Kirim Ulasan';
-                    submitReview.disabled = false;
-                }
-            });
         }
-    }
+    });
+}
 
-    // Enhanced Cart System with Real-time Updates
-    initializeCart() {
-        const cartSidebar = document.getElementById('cart-sidebar');
-        const cartOverlay = document.getElementById('cart-overlay');
-        const closeCart = document.querySelector('.close-cart');
-        const checkoutBtn = document.getElementById('checkout-btn');
-        const clearCartBtn = document.getElementById('clear-cart-btn');
-
-        // Enhanced open cart function
-        window.openCartSidebar = () => {
-            if (cartSidebar && cartOverlay) {
-                cartSidebar.classList.add('pre-open');
-                
-                setTimeout(() => {
-                    cartSidebar.classList.remove('pre-open');
-                    cartSidebar.classList.add('active');
-                    cartOverlay.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                    
-                    // Update cart display
-                    this.updateCartDisplay();
-                }, 50);
-            }
-        };
-
-        // Enhanced close function
-        const closeCartSidebar = () => {
-            if (cartSidebar && cartOverlay) {
-                cartSidebar.classList.add('closing');
-                
-                setTimeout(() => {
-                    cartSidebar.classList.remove('active', 'closing');
-                    cartOverlay.classList.remove('active');
-                    document.body.style.overflow = '';
-                }, 400);
-            }
-        };
-
-        if (closeCart) {
-            closeCart.addEventListener('click', closeCartSidebar);
-        }
-
-        if (cartOverlay) {
-            cartOverlay.addEventListener('click', closeCartSidebar);
-        }
-
-        // Enhanced checkout with validation
-        if (checkoutBtn) {
-            checkoutBtn.addEventListener('click', () => {
-                if (this.cart.length === 0) {
-                    this.showValidationError('Keranjang belanja kosong. Silakan tambahkan produk terlebih dahulu.');
-                    return;
-                }
-
-                closeCartSidebar();
-                
-                // Add slight delay for smooth transition
-                setTimeout(() => {
-                    window.openToppingsModal();
-                }, 300);
-            });
-        }
-
-        // Enhanced clear cart with confirmation
-        if (clearCartBtn) {
-            clearCartBtn.addEventListener('click', () => {
-                if (this.cart.length === 0) {
-                    this.showValidationError('Keranjang belanja sudah kosong!');
-                    return;
-                }
-
-                this.showConfirmationDialog(
-                    'Hapus Semua Item',
-                    'Apakah Anda yakin ingin menghapus semua item dari keranjang?',
-                    () => {
-                        this.cart = [];
-                        this.updateCart();
-                        this.backend.set('cart', this.cart);
-                        this.showSocialNotification('Keranjang belanja berhasil dikosongkan!');
-                    }
-                );
-            });
-        }
-
-        // Enhanced add to cart functionality
-        document.addEventListener('click', (e) => {
-            if (e.target.closest('.add-to-cart') || e.target.closest('.add-to-cart-btn')) {
-                const button = e.target.closest('.add-to-cart') || e.target.closest('.add-to-cart-btn');
-                const productId = button.getAttribute('data-id');
-                const productName = button.getAttribute('data-product');
-                const productPrice = parseInt(button.getAttribute('data-price'));
-
-                this.addToCart(productId, productName, productPrice);
-                
-                // Track analytics
-                this.backend.trackAddToCart(productId, 1);
-            }
-        });
-
-        // Initialize cart display
-        this.updateCart();
-    }
-
-    // Enhanced Product Display with Lazy Loading
-    renderProducts(limit = null) {
-        const productContainer = document.getElementById('product-container');
-        if (!productContainer) return;
-
-        productContainer.innerHTML = '';
-
-        const productsToShow = limit ? this.products.slice(0, limit) : this.products;
-
-        productsToShow.forEach((product, index) => {
-            const productCard = this.createProductCard(product, index);
-            productContainer.appendChild(productCard);
-        });
-
-        // Initialize lazy loading for images
-        this.initializeLazyLoading();
-    }
-
-    createProductCard(product, index) {
-        const card = document.createElement('div');
-        card.className = `product-card ${product.comingSoon ? 'coming-soon' : ''}`;
-        card.setAttribute('data-category', product.category);
-        card.style.animationDelay = `${index * 0.1}s`;
-
-        const badgeHTML = product.badge ? 
-            `<div class="product-badge ${product.badge}">${product.badge === 'hot' ? 'HOT' : 'BARU'}</div>` : '';
-
-        const productReviews = this.reviews[product.id] || [];
-        const averageRating = productReviews.length > 0 
-            ? productReviews.reduce((sum, review) => sum + review.rating, 0) / productReviews.length
-            : product.rating;
-
-        const starsHTML = this.generateStars(averageRating);
-        const reviewCount = productReviews.length || product.reviews;
-
-        card.innerHTML = `
-            <div class="product-image">
-                <div class="image-container ${this.getRandomColor()}">
-                    <img alt="${product.name}" src="${product.image}" loading="lazy" 
-                         onerror="this.src='Coming Soon.jpeg'"/>
-                </div>
-                ${badgeHTML}
-                <div class="product-overlay">
-                    <button class="quick-add-btn add-to-cart" 
-                            data-id="${product.id}" 
-                            data-price="${product.price}" 
-                            data-product="${product.name}">
-                        <i class="fas fa-shopping-cart"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="product-info">
-                <h3>${product.name}</h3>
-                <div class="product-rating">
-                    <div class="stars">
-                        ${starsHTML}
-                    </div>
-                    <span class="review-count">(${reviewCount} ulasan)</span>
-                </div>
-                <p>${product.description}</p>
-                <div class="product-footer">
-                    <div class="price">
-                        <span class="current-price">Rp ${product.price.toLocaleString('id-ID')}</span>
-                        <span class="old-price">Rp ${product.oldPrice.toLocaleString('id-ID')}</span>
-                    </div>
-                    <div class="product-actions">
-                        <button class="add-to-cart-btn" 
-                                data-id="${product.id}" 
-                                data-price="${product.price}" 
-                                data-product="${product.name}">
-                            <i class="fas fa-shopping-cart"></i>
-                            Keranjang
-                        </button>
-                        <button class="whatsapp-order-btn" 
-                                data-id="${product.id}" 
-                                data-price="${product.price}" 
-                                data-product="${product.name}">
-                            <i class="fab fa-whatsapp"></i>
-                            Pesan
-                        </button>
-                    </div>
-                </div>
-                <div class="product-social-actions">
-                    <button class="social-action-btn reviews-btn" data-id="${product.id}">
-                        <i class="fas fa-star"></i>
-                        <span>Ulasan</span>
-                    </button>
-                    <button class="social-action-btn like-btn" data-id="${product.id}">
-                        <i class="far fa-heart"></i>
-                        <span>Suka</span>
-                    </button>
-                    <button class="social-action-btn share-btn" data-id="${product.id}">
-                        <i class="fas fa-share-alt"></i>
-                        <span>Bagikan</span>
-                    </button>
-                </div>
-            </div>
-        `;
-
-        return card;
-    }
-
-    // Enhanced Utility Methods
-    addToCart(productId, productName, productPrice) {
-        const existingItem = this.cart.find(item => item.id === productId);
-
-        if (existingItem) {
-            existingItem.quantity += 1;
-        } else {
-            this.cart.push({
-                id: productId,
-                name: productName,
-                price: productPrice,
-                quantity: 1
-            });
-        }
-
-        this.updateCart();
-        this.backend.set('cart', this.cart);
-        this.showCartNotification();
-        this.animateCartIcon();
-    }
-
-    updateCart() {
-        // Update cart count
-        const totalItems = this.cart.reduce((total, item) => total + item.quantity, 0);
-        document.querySelectorAll('.cart-count').forEach(element => {
-            element.textContent = totalItems;
-        });
-
-        // Update checkout button state
-        const checkoutBtn = document.getElementById('checkout-btn');
-        const clearCartBtn = document.getElementById('clear-cart-btn');
+// Show social notification
+function showSocialNotification(message) {
+    const notification = document.getElementById('social-notification');
+    const notificationText = document.getElementById('social-notification-text');
+    
+    if (notification && notificationText) {
+        notificationText.textContent = message;
+        notification.style.display = 'flex';
         
-        if (checkoutBtn) checkoutBtn.disabled = this.cart.length === 0;
-        if (clearCartBtn) clearCartBtn.disabled = this.cart.length === 0;
-
-        // Update cart items display
-        this.updateCartDisplay();
+        setTimeout(() => {
+            notification.style.display = 'none';
+        }, 3000);
     }
+}
 
-    updateCartDisplay() {
-        const cartItems = document.getElementById('cart-items');
-        if (!cartItems) return;
+// Generate Stars
+function generateStars(rating) {
+    let starsHTML = '';
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
+    
+    for (let i = 0; i < fullStars; i++) {
+        starsHTML += '<i class="fas fa-star"></i>';
+    }
+    
+    if (hasHalfStar) {
+        starsHTML += '<i class="fas fa-star-half-alt"></i>';
+    }
+    
+    const emptyStars = 5 - Math.ceil(rating);
+    for (let i = 0; i < emptyStars; i++) {
+        starsHTML += '<i class="far fa-star"></i>';
+    }
+    
+    return starsHTML;
+}
 
-        cartItems.innerHTML = '';
+// Get Random Color
+function getRandomColor() {
+    const colors = ['red', 'yellow', 'green', 'blue', 'purple', 'orange'];
+    return colors[Math.floor(Math.random() * colors.length)];
+}
 
-        if (this.cart.length === 0) {
-            cartItems.innerHTML = `
-                <div class="empty-cart">
-                    <i class="fas fa-shopping-cart"></i>
-                    <p>Keranjang belanja kosong</p>
-                    <small>Tambahkan produk untuk mulai berbelanja</small>
-                </div>
-            `;
-        } else {
-            this.cart.forEach((item, index) => {
-                const cartItem = document.createElement('div');
-                cartItem.className = 'cart-item';
-                cartItem.style.animationDelay = `${index * 0.1}s`;
-                
-                cartItem.innerHTML = `
-                    <div class="cart-item-info">
-                        <h4>${item.name}</h4>
-                        <p>Rp ${item.price.toLocaleString('id-ID')}</p>
-                    </div>
-                    <div class="cart-item-controls">
-                        <div class="quantity-controls">
-                            <button class="qty-btn decrease" data-id="${item.id}">-</button>
-                            <span class="qty-display">${item.quantity}</span>
-                            <button class="qty-btn increase" data-id="${item.id}">+</button>
-                        </div>
-                        <button class="remove-item" data-id="${item.id}">
-                            <i class="fas fa-trash"></i>
-                        </button>
+// Navbar functionality
+function initNavbar() {
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+    const cartIcon = document.getElementById('cart-icon');
+    const mobileCartIcon = document.getElementById('mobile-cart-icon');
+    
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+    }
+    
+    // Cart icon functionality
+    const cartIcons = [cartIcon, mobileCartIcon];
+    cartIcons.forEach(icon => {
+        if (icon) {
+            icon.addEventListener('click', function() {
+                openCartSidebar();
+            });
+        }
+    });
+    
+    // Close mobile menu when clicking on a link
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (window.innerWidth <= 768) {
+            if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        }
+    });
+}
+
+// Slider functionality with swipe support
+function initSlider() {
+    const slider = document.getElementById('slider');
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.slider-dot');
+    const prevBtn = document.getElementById('prev-slide');
+    const nextBtn = document.getElementById('next-slide');
+    let currentSlide = 0;
+    
+    if (!slider || slides.length === 0) return;
+    
+    function showSlide(index) {
+        // Update active slide
+        slides.forEach(slide => slide.classList.remove('active'));
+        slides[index].classList.add('active');
+        
+        // Update active dot
+        dots.forEach(dot => dot.classList.remove('active'));
+        dots[index].classList.add('active');
+        
+        // Update background color based on slide
+        const category = slides[index].getAttribute('data-category');
+        updateHeroBackground(category);
+        
+        currentSlide = index;
+    }
+    
+    function updateHeroBackground(category) {
+        const heroBg = document.querySelector('.hero-bg');
+        if (!heroBg) return;
+        
+        // Background colors: red, yellow, orange only
+        const colors = {
+            pedas: 'linear-gradient(135deg, #dc2626 0%, #ef4444 100%)', // Red
+            gurih: 'linear-gradient(135deg, #f59e0b 0%, #eab308 100%)', // Yellow
+            spesial: 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)', // Orange
+            manis: 'linear-gradient(135deg, #f59e0b 0%, #eab308 100%)' // Yellow for manis
+        };
+        
+        heroBg.style.background = colors[category] || colors.pedas;
+    }
+    
+    // Next slide
+    function nextSlide() {
+        let next = currentSlide + 1;
+        if (next >= slides.length) next = 0;
+        showSlide(next);
+    }
+    
+    // Previous slide
+    function prevSlide() {
+        let prev = currentSlide - 1;
+        if (prev < 0) prev = slides.length - 1;
+        showSlide(prev);
+    }
+    
+    // Auto slide
+    let slideInterval = setInterval(nextSlide, 5000);
+    
+    // Button navigation
+    if (prevBtn) prevBtn.addEventListener('click', () => {
+        clearInterval(slideInterval);
+        prevSlide();
+        slideInterval = setInterval(nextSlide, 5000);
+    });
+    
+    if (nextBtn) nextBtn.addEventListener('click', () => {
+        clearInterval(slideInterval);
+        nextSlide();
+        slideInterval = setInterval(nextSlide, 5000);
+    });
+    
+    // Dot navigation
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            clearInterval(slideInterval);
+            showSlide(index);
+            slideInterval = setInterval(nextSlide, 5000);
+        });
+    });
+    
+    // Touch swipe support
+    let startX = 0;
+    let endX = 0;
+    
+    slider.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+    });
+    
+    slider.addEventListener('touchend', (e) => {
+        endX = e.changedTouches[0].clientX;
+        handleSwipe();
+    });
+    
+    // Mouse swipe support
+    slider.addEventListener('mousedown', (e) => {
+        startX = e.clientX;
+        document.addEventListener('mouseup', handleMouseUp);
+    });
+    
+    function handleMouseUp(e) {
+        endX = e.clientX;
+        handleSwipe();
+        document.removeEventListener('mouseup', handleMouseUp);
+    }
+    
+    function handleSwipe() {
+        const diff = startX - endX;
+        const swipeThreshold = 50;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            clearInterval(slideInterval);
+            if (diff > 0) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+    }
+}
+
+// Cart functionality
+function initCart() {
+    const cartSidebar = document.getElementById('cart-sidebar');
+    const cartOverlay = document.getElementById('cart-overlay');
+    const closeCart = document.querySelector('.close-cart');
+    const cartItems = document.getElementById('cart-items');
+    const cartCount = document.querySelector('.cart-count');
+    const mobileCartCount = document.querySelector('.mobile-cart .cart-count');
+    const cartNotification = document.getElementById('cart-notification');
+    const continueShopping = document.querySelector('.continue-shopping');
+    const checkoutBtn = document.getElementById('checkout-btn');
+    const clearCartBtn = document.getElementById('clear-cart-btn');
+    
+    // Toggle cart sidebar
+    window.openCartSidebar = function() {
+        if (cartSidebar && cartOverlay) {
+            cartSidebar.classList.add('active');
+            cartOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    };
+    
+    function closeCartSidebar() {
+        if (cartSidebar && cartOverlay) {
+            cartSidebar.classList.remove('active');
+            cartOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    }
+    
+    if (closeCart) {
+        closeCart.addEventListener('click', closeCartSidebar);
+    }
+    
+    if (cartOverlay) {
+        cartOverlay.addEventListener('click', closeCartSidebar);
+    }
+    
+    if (continueShopping) {
+        continueShopping.addEventListener('click', closeCartSidebar);
+    }
+    
+    // Clear cart functionality
+    if (clearCartBtn) {
+        clearCartBtn.addEventListener('click', function() {
+            if (cart.length === 0) {
+                alert('Keranjang belanja sudah kosong!');
+                return;
+            }
+            
+            if (confirm('Apakah Anda yakin ingin menghapus semua item dari keranjang?')) {
+                cart = [];
+                updateCart();
+                saveCartToStorage();
+                alert('Keranjang belanja berhasil dikosongkan!');
+            }
+        });
+    }
+    
+    // Add to cart functionality
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.add-to-cart') || e.target.closest('.add-to-cart-btn')) {
+            const button = e.target.closest('.add-to-cart') || e.target.closest('.add-to-cart-btn');
+            
+            const productId = button.getAttribute('data-id');
+            const productName = button.getAttribute('data-product');
+            const productPrice = parseInt(button.getAttribute('data-price'));
+            
+            // Check if product already in cart
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: productId,
+                    name: productName,
+                    price: productPrice,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            saveCartToStorage();
+            showCartNotification();
+            animateCartIcon();
+        }
+    });
+    
+    // Checkout functionality - Modified to require toppings
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', function() {
+            if (cart.length === 0) {
+                alert('Keranjang belanja kosong. Silakan tambahkan produk terlebih dahulu.');
+                return;
+            }
+            
+            closeCartSidebar();
+            openToppingsModal();
+        });
+    }
+    
+    // Update cart
+    function updateCart() {
+        // Update cart count
+        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+        if (cartCount) {
+            cartCount.textContent = totalItems;
+        }
+        if (mobileCartCount) {
+            mobileCartCount.textContent = totalItems;
+        }
+        
+        // Update checkout button state
+        if (checkoutBtn) {
+            checkoutBtn.disabled = cart.length === 0;
+        }
+        
+        // Update clear cart button state
+        if (clearCartBtn) {
+            clearCartBtn.disabled = cart.length === 0;
+        }
+        
+        // Update cart items
+        if (cartItems) {
+            cartItems.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>Keranjang belanja kosong</p>
+                        <small>Tambahkan produk untuk mulai berbelanja</small>
                     </div>
                 `;
-                cartItems.appendChild(cartItem);
-            });
-
-            // Add event listeners
-            this.attachCartEventListeners();
+            } else {
+                cart.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <div class="cart-item-info">
+                            <h4>${item.name}</h4>
+                            <p>Rp ${item.price.toLocaleString('id-ID')}</p>
+                        </div>
+                        <div class="cart-item-controls">
+                            <div class="quantity-controls">
+                                <button class="qty-btn decrease" data-id="${item.id}">-</button>
+                                <span class="qty-display">${item.quantity}</span>
+                                <button class="qty-btn increase" data-id="${item.id}">+</button>
+                            </div>
+                            <button class="remove-item" data-id="${item.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                    cartItems.appendChild(cartItem);
+                });
+                
+                // Add event listeners to quantity buttons
+                document.querySelectorAll('.increase').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = this.getAttribute('data-id');
+                        const item = cart.find(item => item.id === id);
+                        if (item) {
+                            item.quantity += 1;
+                            updateCart();
+                            saveCartToStorage();
+                        }
+                    });
+                });
+                
+                document.querySelectorAll('.decrease').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = this.getAttribute('data-id');
+                        const item = cart.find(item => item.id === id);
+                        if (item && item.quantity > 1) {
+                            item.quantity -= 1;
+                            updateCart();
+                            saveCartToStorage();
+                        }
+                    });
+                });
+                
+                document.querySelectorAll('.remove-item').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = this.getAttribute('data-id');
+                        cart = cart.filter(item => item.id !== id);
+                        updateCart();
+                        saveCartToStorage();
+                    });
+                });
+            }
             
-            // Update summary
-            this.updateCartSummary();
-        }
-    }
-
-    attachCartEventListeners() {
-        document.querySelectorAll('.increase').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const id = e.target.closest('.increase').getAttribute('data-id');
-                const item = this.cart.find(item => item.id === id);
-                if (item) {
-                    item.quantity += 1;
-                    this.updateCart();
-                    this.backend.set('cart', this.cart);
-                }
-            });
-        });
-
-        document.querySelectorAll('.decrease').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const id = e.target.closest('.decrease').getAttribute('data-id');
-                const item = this.cart.find(item => item.id === id);
-                if (item && item.quantity > 1) {
-                    item.quantity -= 1;
-                    this.updateCart();
-                    this.backend.set('cart', this.cart);
-                }
-            });
-        });
-
-        document.querySelectorAll('.remove-item').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const id = e.target.closest('.remove-item').getAttribute('data-id');
-                this.cart = this.cart.filter(item => item.id !== id);
-                this.updateCart();
-                this.backend.set('cart', this.cart);
-            });
-        });
-    }
-
-    updateCartSummary() {
-        const subtotal = this.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-        const total = subtotal;
-
-        const cartSubtotal = document.getElementById('cart-subtotal');
-        const cartTotal = document.getElementById('cart-total');
-
-        if (cartSubtotal) cartSubtotal.textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
-        if (cartTotal) cartTotal.textContent = `Rp ${total.toLocaleString('id-ID')}`;
-    }
-
-    // Enhanced WhatsApp Order System
-    sendOrderToWhatsApp(selectedToppings, customToppings) {
-        const productSubtotal = this.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-        const total = productSubtotal;
-
-        let message = `Halo! Saya tertarik untuk memesan produk berikut:\n\n`;
-        
-        message += `*Detail Pesanan:*\n`;
-        this.cart.forEach((item, index) => {
-            message += `${index + 1}. ${item.name}\n`;
-            message += `   Jumlah: ${item.quantity}\n`;
-            message += `   Harga: Rp ${item.price.toLocaleString('id-ID')}\n`;
-            message += `   Subtotal: Rp ${(item.price * item.quantity).toLocaleString('id-ID')}\n\n`;
-        });
-
-        if (selectedToppings.length > 0) {
-            message += `*Topping:*\n`;
-            selectedToppings.forEach((topping, index) => {
-                message += `${index + 1}. ${topping.name}\n`;
-            });
-            message += `\n`;
-        }
-
-        if (customToppings) {
-            message += `*Catatan Khusus:*\n${customToppings}\n\n`;
-        }
-
-        message += `*Ringkasan Pembayaran:*\n`;
-        message += `Subtotal Produk: Rp ${productSubtotal.toLocaleString('id-ID')}\n`;
-        message += `*Total: Rp ${total.toLocaleString('id-ID')}*\n\n`;
-        message += `Bisa tolong informasikan ketersediaan dan cara pemesanannya? Terima kasih!`;
-
-        const encodedMessage = encodeURIComponent(message);
-        const whatsappURL = `https://wa.me/6285692816835?text=${encodedMessage}`;
-
-        // Create order data for analytics
-        const orderData = {
-            orderId: this.backend.generateOrderId(),
-            items: this.cart,
-            toppings: selectedToppings,
-            notes: customToppings,
-            total: total,
-            timestamp: new Date().toISOString()
-        };
-
-        // Send to backend
-        this.backend.createOrder(orderData);
-
-        // Open WhatsApp
-        window.open(whatsappURL, '_blank');
-
-        // Clear cart after successful order
-        this.cart = [];
-        this.updateCart();
-        this.backend.set('cart', this.cart);
-
-        // Show success message with delay
-        setTimeout(() => {
-            this.showSuccessDialog(
-                'Pesanan Berhasil!',
-                'Pesanan berhasil dikirim ke WhatsApp! Terima kasih telah berbelanja di Mix & Crunch.'
-            );
-        }, 1500);
-    }
-
-    // Enhanced UI Components
-    showValidationError(message) {
-        const notification = document.createElement('div');
-        notification.className = 'validation-notification';
-        notification.innerHTML = `
-            <i class="fas fa-exclamation-triangle"></i>
-            <span>${message}</span>
-        `;
-        
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-            notification.classList.add('show');
-        }, 100);
-        
-        setTimeout(() => {
-            notification.classList.remove('show');
-            setTimeout(() => {
-                document.body.removeChild(notification);
-            }, 300);
-        }, 4000);
-    }
-
-    showConfirmationDialog(title, message, onConfirm) {
-        const dialog = document.createElement('div');
-        dialog.className = 'confirmation-dialog';
-        dialog.innerHTML = `
-            <div class="dialog-content">
-                <h3>${title}</h3>
-                <p>${message}</p>
-                <div class="dialog-actions">
-                    <button class="btn-secondary cancel-btn">Batal</button>
-                    <button class="btn-primary confirm-btn">Ya, Lanjutkan</button>
-                </div>
-            </div>
-        `;
-        
-        document.body.appendChild(dialog);
-        
-        setTimeout(() => {
-            dialog.classList.add('show');
-        }, 100);
-        
-        // Add event listeners
-        dialog.querySelector('.cancel-btn').addEventListener('click', () => {
-            dialog.classList.remove('show');
-            setTimeout(() => {
-                document.body.removeChild(dialog);
-            }, 300);
-        });
-        
-        dialog.querySelector('.confirm-btn').addEventListener('click', () => {
-            dialog.classList.remove('show');
-            setTimeout(() => {
-                document.body.removeChild(dialog);
-                onConfirm();
-            }, 300);
-        });
-    }
-
-    showSuccessDialog(title, message) {
-        const dialog = document.createElement('div');
-        dialog.className = 'success-dialog';
-        dialog.innerHTML = `
-            <div class="dialog-content">
-                <i class="fas fa-check-circle"></i>
-                <h3>${title}</h3>
-                <p>${message}</p>
-                <button class="btn-primary ok-btn">Oke</button>
-            </div>
-        `;
-        
-        document.body.appendChild(dialog);
-        
-        setTimeout(() => {
-            dialog.classList.add('show');
-        }, 100);
-        
-        dialog.querySelector('.ok-btn').addEventListener('click', () => {
-            dialog.classList.remove('show');
-            setTimeout(() => {
-                document.body.removeChild(dialog);
-            }, 300);
-        });
-    }
-
-    // Animation Methods
-    animateModalEntrance(modal) {
-        const content = modal.querySelector('.toppings-modal-content');
-        if (content) {
-            content.style.transform = 'scale(0.8) translateY(50px)';
-            content.style.opacity = '0';
+            // Update cart summary
+            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const total = subtotal;
             
-            setTimeout(() => {
-                content.style.transition = 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-                content.style.transform = 'scale(1) translateY(0)';
-                content.style.opacity = '1';
-            }, 50);
+            const cartSubtotal = document.getElementById('cart-subtotal');
+            const cartTotal = document.getElementById('cart-total');
+            
+            if (cartSubtotal) {
+                cartSubtotal.textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
+            }
+            
+            if (cartTotal) {
+                cartTotal.textContent = `Rp ${total.toLocaleString('id-ID')}`;
+            }
         }
     }
-
-    animateCartIcon() {
+    
+    // Save cart to localStorage
+    function saveCartToStorage() {
+        storage.set('cart', cart);
+    }
+    
+    // Show cart notification
+    function showCartNotification() {
+        if (cartNotification) {
+            cartNotification.style.display = 'flex';
+            setTimeout(() => {
+                cartNotification.style.display = 'none';
+            }, 3000);
+        }
+    }
+    
+    // Animate cart icon
+    function animateCartIcon() {
         const cartIcons = document.querySelectorAll('.cart-icon');
         cartIcons.forEach(icon => {
             icon.classList.add('animate');
@@ -1157,588 +863,588 @@ class MixCrunchApp {
             }, 600);
         });
     }
+    
+    // Initialize cart on page load
+    updateCart();
+    
+    // Expose functions for checkout
+    window.getCart = () => cart;
+    window.clearCart = () => {
+        cart = [];
+        updateCart();
+        saveCartToStorage();
+    };
+}
 
-    showCartNotification() {
-        const notification = document.getElementById('cart-notification');
-        if (notification) {
-            notification.style.display = 'flex';
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 3000);
+// Toppings modal functionality
+function initToppingsModal() {
+    const toppingsModal = document.getElementById('toppings-modal');
+    const closeToppings = document.querySelector('.close-toppings');
+    const cancelToppings = document.getElementById('cancel-toppings');
+    const confirmToppings = document.getElementById('confirm-toppings');
+    
+    // Open toppings modal
+    window.openToppingsModal = function() {
+        if (toppingsModal) {
+            toppingsModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            // Reset form
+            document.getElementById('custom-toppings').value = '';
+            // Uncheck all checkboxes
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            selectedToppings = [];
+        }
+    };
+    
+    // Close toppings modal
+    function closeToppingsModal() {
+        if (toppingsModal) {
+            toppingsModal.classList.remove('active');
+            document.body.style.overflow = '';
         }
     }
-
-    showSocialNotification(message) {
-        const notification = document.getElementById('social-notification');
-        const notificationText = document.getElementById('social-notification-text');
-        
-        if (notification && notificationText) {
-            notificationText.textContent = message;
-            notification.style.display = 'flex';
+    
+    if (closeToppings) {
+        closeToppings.addEventListener('click', closeToppingsModal);
+    }
+    
+    if (cancelToppings) {
+        cancelToppings.addEventListener('click', closeToppingsModal);
+    }
+    
+    // Handle topping selection
+    document.addEventListener('change', function(e) {
+        if (e.target.type === 'checkbox' && e.target.name) {
+            const toppingName = e.target.value;
             
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 3000);
-        }
-    }
-
-    // Utility Methods
-    generateStars(rating) {
-        let starsHTML = '';
-        const fullStars = Math.floor(rating);
-        const hasHalfStar = rating % 1 !== 0;
-        
-        for (let i = 0; i < fullStars; i++) {
-            starsHTML += '<i class="fas fa-star"></i>';
-        }
-        
-        if (hasHalfStar) {
-            starsHTML += '<i class="fas fa-star-half-alt"></i>';
-        }
-        
-        const emptyStars = 5 - Math.ceil(rating);
-        for (let i = 0; i < emptyStars; i++) {
-            starsHTML += '<i class="far fa-star"></i>';
-        }
-        
-        return starsHTML;
-    }
-
-    getRandomColor() {
-        const colors = ['red', 'yellow', 'green', 'blue', 'purple', 'orange'];
-        return colors[Math.floor(Math.random() * colors.length)];
-    }
-
-    updateToppingSelectionCounter() {
-        const counter = document.querySelector('.topping-selection-counter');
-        if (!counter) {
-            const header = document.querySelector('.toppings-header h3');
-            if (header) {
-                const newCounter = document.createElement('span');
-                newCounter.className = 'topping-selection-counter';
-                header.appendChild(newCounter);
+            if (e.target.checked) {
+                selectedToppings.push({
+                    name: toppingName
+                });
+            } else {
+                selectedToppings = selectedToppings.filter(topping => topping.name !== toppingName);
             }
         }
-        
-        const counterElement = document.querySelector('.topping-selection-counter');
-        if (counterElement) {
-            counterElement.textContent = ` (${this.selectedToppings.length} dipilih)`;
-        }
-    }
-
-    // Initialize other components (simplified for brevity)
-    initializeNavbar() {
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('nav-menu');
-        
-        if (hamburger && navMenu) {
-            hamburger.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-                hamburger.classList.toggle('active');
-            });
-        }
-
-        // Cart icon functionality
-        document.querySelectorAll('.cart-icon').forEach(icon => {
-            icon.addEventListener('click', () => {
-                window.openCartSidebar();
-            });
+    });
+    
+    // Confirm toppings and send to WhatsApp - Modified to require at least one topping
+    if (confirmToppings) {
+        confirmToppings.addEventListener('click', function() {
+            const customToppings = document.getElementById('custom-toppings').value.trim();
+            
+            // Check if at least one topping is selected
+            if (selectedToppings.length === 0) {
+                alert('Silakan pilih minimal satu topping sebelum melanjutkan!');
+                return;
+            }
+            
+            sendOrderToWhatsApp(selectedToppings, customToppings);
+            closeToppingsModal();
         });
+    }
+    
+    // Send order to WhatsApp
+    function sendOrderToWhatsApp(selectedToppings, customToppings) {
+        const cart = window.getCart();
+        
+        // Calculate totals
+        const productSubtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+        const total = productSubtotal;
+        
+        // Build order message
+        let message = `Halo! Saya tertarik untuk memesan produk berikut:\n\n`;
+        
+        message += `*Detail Pesanan:*\n`;
+        cart.forEach((item, index) => {
+            message += `${index + 1}. ${item.name}\n`;
+            message += `   Jumlah: ${item.quantity}\n`;
+            message += `   Harga: Rp ${item.price.toLocaleString('id-ID')}\n`;
+            message += `   Subtotal: Rp ${(item.price * item.quantity).toLocaleString('id-ID')}\n\n`;
+        });
+        
+        if (selectedToppings.length > 0) {
+            message += `*Topping:*\n`;
+            selectedToppings.forEach((topping, index) => {
+                message += `${index + 1}. ${topping.name}\n`;
+            });
+            message += `\n`;
+        }
+        
+        if (customToppings) {
+            message += `*Catatan Khusus:*\n${customToppings}\n\n`;
+        }
+        
+        message += `*Ringkasan Pembayaran:*\n`;
+        message += `Subtotal Produk: Rp ${productSubtotal.toLocaleString('id-ID')}\n`;
+        message += `*Total: Rp ${total.toLocaleString('id-ID')}*\n\n`;
+        message += `Bisa tolong informasikan ketersediaan dan cara pemesanannya? Terima kasih!`;
+        
+        // Encode message for WhatsApp
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappURL = `https://wa.me/6285692816835?text=${encodedMessage}`;
+        
+        // Open WhatsApp
+        window.open(whatsappURL, '_blank');
+        
+        // Clear cart after successful order
+        window.clearCart();
+        
+        // Show success message
+        setTimeout(() => {
+            alert('Pesanan berhasil dikirim ke WhatsApp! Terima kasih telah berbelanja.');
+        }, 1000);
+    }
+}
 
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
-                    navMenu.classList.remove('active');
-                    hamburger.classList.remove('active');
+// Product filters
+function initProductFilters() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const productContainer = document.getElementById('product-container');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            const filter = this.getAttribute('data-filter');
+            
+            const productCards = productContainer.querySelectorAll('.product-card');
+            
+            productCards.forEach(card => {
+                if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                    card.style.display = 'block';
+                    // Add animation
+                    card.style.animation = 'fadeInUp 0.5s ease forwards';
+                } else {
+                    card.style.display = 'none';
                 }
             });
         });
-    }
-
-    initializeSlider() {
-        // Slider implementation
-        const slider = document.getElementById('slider');
-        if (!slider) return;
-
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.slider-dot');
-
-        function showSlide(index) {
-            slides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
+    });
+    
+    // Search functionality
+    const searchInput = document.querySelector('.search-input');
+    const mobileSearchInput = document.querySelector('.mobile-search-input');
+    
+    function handleSearch(searchTerm) {
+        const productCards = productContainer.querySelectorAll('.product-card');
+        
+        productCards.forEach(card => {
+            const productName = card.querySelector('h3').textContent.toLowerCase();
             
-            slides[index].classList.add('active');
-            dots[index].classList.add('active');
-            currentSlide = index;
+            if (productName.includes(searchTerm)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        
+        // Reset filter buttons
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        filterButtons[0].classList.add('active'); // Set "Semua" as active
+    }
+    
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            handleSearch(this.value.toLowerCase());
+        });
+    }
+    
+    if (mobileSearchInput) {
+        mobileSearchInput.addEventListener('input', function() {
+            handleSearch(this.value.toLowerCase());
+        });
+    }
+}
+
+// WhatsApp direct orders
+function initWhatsAppOrders() {
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.whatsapp-order-btn')) {
+            const button = e.target.closest('.whatsapp-order-btn');
+            
+            const productName = button.getAttribute('data-product');
+            const productPrice = parseInt(button.getAttribute('data-price'));
+            
+            // Build simple order message
+            let message = `Halo! Saya tertarik untuk memesan ${productName}. Bisa tolong informasikan ketersediaan dan cara pemesanannya? Terima kasih!`;
+            
+            // Encode message for WhatsApp
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappURL = `https://wa.me/6285692816835?text=${encodedMessage}`;
+            
+            // Open WhatsApp
+            window.open(whatsappURL, '_blank');
         }
+    });
+}
 
-        // Auto slide
-        setInterval(() => {
-            let next = currentSlide + 1;
-            if (next >= slides.length) next = 0;
-            showSlide(next);
-        }, 5000);
-
-        // Navigation
-        document.getElementById('next-slide')?.addEventListener('click', () => {
-            let next = currentSlide + 1;
-            if (next >= slides.length) next = 0;
-            showSlide(next);
-        });
-
-        document.getElementById('prev-slide')?.addEventListener('click', () => {
-            let prev = currentSlide - 1;
-            if (prev < 0) prev = slides.length - 1;
-            showSlide(prev);
-        });
-
-        // Dot navigation
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => showSlide(index));
-        });
-    }
-
-    // Other initialization methods (simplified)
-    initializeProductFilters() {
-        const filterButtons = document.querySelectorAll('.filter-btn');
+// FAQ functionality
+function initFAQ() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
         
-        filterButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                e.target.classList.add('active');
-                
-                const filter = e.target.getAttribute('data-filter');
-                const products = document.querySelectorAll('.product-card');
-                
-                products.forEach(product => {
-                    if (filter === 'all' || product.getAttribute('data-category') === filter) {
-                        product.style.display = 'block';
-                    } else {
-                        product.style.display = 'none';
-                    }
-                });
+        question.addEventListener('click', () => {
+            // Close all other FAQ items
+            faqItems.forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
+                }
             });
+            
+            // Toggle current FAQ item
+            item.classList.toggle('active');
         });
-    }
+    });
+}
 
-    initializeFAQ() {
-        const faqItems = document.querySelectorAll('.faq-item');
-        
-        faqItems.forEach(item => {
-            item.querySelector('.faq-question').addEventListener('click', () => {
-                faqItems.forEach(otherItem => {
-                    if (otherItem !== item) otherItem.classList.remove('active');
-                });
-                item.classList.toggle('active');
-            });
-        });
-    }
-
-    initializeBackToTop() {
-        const backToTop = document.getElementById('back-to-top');
-        
+// Back to top button
+function initBackToTop() {
+    const backToTop = document.getElementById('back-to-top');
+    
+    if (backToTop) {
         window.addEventListener('scroll', () => {
             if (window.pageYOffset > 300) {
-                backToTop?.classList.add('visible');
+                backToTop.classList.add('visible');
             } else {
-                backToTop?.classList.remove('visible');
+                backToTop.classList.remove('visible');
             }
         });
         
-        backToTop?.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
     }
+}
 
-    initializePromoTimer() {
-        function updateTimer() {
-            const promoEndDate = new Date();
+// Promo timer
+function initPromoTimer() {
+    function updatePromoTimer() {
+        // Set promo end date to 7 days from now
+        const promoEndDate = new Date();
+        promoEndDate.setDate(promoEndDate.getDate() + 7);
+        
+        const now = new Date();
+        const timeLeft = promoEndDate - now;
+        
+        if (timeLeft <= 0) {
+            // Reset to next week
             promoEndDate.setDate(promoEndDate.getDate() + 7);
-            
-            const now = new Date();
-            const timeLeft = promoEndDate - now;
-            
-            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-            
-            document.getElementById('promo-days').textContent = days.toString().padStart(2, '0');
-            document.getElementById('promo-hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('promo-minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('promo-seconds').textContent = seconds.toString().padStart(2, '0');
         }
         
-        setInterval(updateTimer, 1000);
-        updateTimer();
+        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+        
+        const promoDays = document.getElementById('promo-days');
+        const promoHours = document.getElementById('promo-hours');
+        const promoMinutes = document.getElementById('promo-minutes');
+        const promoSeconds = document.getElementById('promo-seconds');
+        
+        if (promoDays) promoDays.textContent = days.toString().padStart(2, '0');
+        if (promoHours) promoHours.textContent = hours.toString().padStart(2, '0');
+        if (promoMinutes) promoMinutes.textContent = minutes.toString().padStart(2, '0');
+        if (promoSeconds) promoSeconds.textContent = seconds.toString().padStart(2, '0');
     }
+    
+    setInterval(updatePromoTimer, 1000);
+    updatePromoTimer();
+}
 
-    initializeSmoothScroll() {
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-    }
-
-    initializeWhatsAppOrders() {
-        document.addEventListener('click', (e) => {
-            if (e.target.closest('.whatsapp-order-btn')) {
-                const button = e.target.closest('.whatsapp-order-btn');
-                const productName = button.getAttribute('data-product');
+// Smooth scrolling for anchor links
+function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                const offsetTop = targetElement.offsetTop - 80;
                 
-                const message = `Halo! Saya tertarik untuk memesan ${productName}. Bisa tolong informasikan ketersediaan dan cara pemesanannya? Terima kasih!`;
-                const encodedMessage = encodeURIComponent(message);
-                const whatsappURL = `https://wa.me/6285692816835?text=${encodedMessage}`;
-                
-                window.open(whatsappURL, '_blank');
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
             }
         });
-    }
+    });
+}
 
-    initializeScrollAnimations() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('bounce-in');
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        document.querySelectorAll('.product-card, .testimonial-card, .section-header').forEach(el => {
-            observer.observe(el);
+// Scroll animations
+function initScrollAnimations() {
+    const animatedElements = document.querySelectorAll('.product-card, .testimonial-card, .section-header, .about-content, .feature-card');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('bounce-in');
+                observer.unobserve(entry.target);
+            }
         });
-    }
+    }, { threshold: 0.1 });
+    
+    animatedElements.forEach(el => {
+        observer.observe(el);
+    });
+}
 
-    initializeViewMore() {
-        const viewMoreBtn = document.getElementById('view-more-btn');
-        let showingAll = false;
-        
-        viewMoreBtn?.addEventListener('click', () => {
+// View More functionality
+function initViewMore() {
+    const viewMoreBtn = document.getElementById('view-more-btn');
+    let showingAll = false;
+    
+    if (viewMoreBtn) {
+        viewMoreBtn.addEventListener('click', function() {
             if (showingAll) {
-                this.renderProducts(3);
+                renderProducts(3);
                 viewMoreBtn.innerHTML = '<i class="fas fa-eye"></i> Lihat Produk Lainnya';
                 showingAll = false;
+                
+                // Scroll to products section
+                const productsSection = document.getElementById('produk');
+                if (productsSection) {
+                    const offsetTop = productsSection.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
             } else {
-                this.renderProducts();
+                renderProducts();
                 viewMoreBtn.innerHTML = '<i class="fas fa-eye-slash"></i> Lihat Lebih Sedikit';
                 showingAll = true;
             }
         });
     }
+}
 
-    initializeProductSocialActions() {
-        document.addEventListener('click', (e) => {
-            if (e.target.closest('.like-btn')) {
-                const button = e.target.closest('.like-btn');
-                const icon = button.querySelector('i');
-                
-                if (icon.classList.contains('far')) {
-                    icon.classList.replace('far', 'fas');
-                    button.classList.add('liked');
-                    this.showSocialNotification('Produk berhasil ditambahkan ke favorit!');
-                } else {
-                    icon.classList.replace('fas', 'far');
-                    button.classList.remove('liked');
-                    this.showSocialNotification('Produk dihapus dari favorit!');
-                }
-            }
+// Reviews Modal functionality
+function initReviewsModal() {
+    const reviewsModal = document.getElementById('reviews-modal');
+    const closeReviews = document.querySelector('.close-reviews');
+    
+    // Close reviews modal
+    if (closeReviews) {
+        closeReviews.addEventListener('click', closeReviewsModal);
+    }
+    
+    // Star rating functionality
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.star-rating i')) {
+            const star = e.target.closest('.star-rating i');
+            const rating = parseInt(star.getAttribute('data-rating'));
+            const stars = document.querySelectorAll('.star-rating i');
             
-            if (e.target.closest('.reviews-btn')) {
-                const button = e.target.closest('.reviews-btn');
-                const productId = button.getAttribute('data-id');
-                this.openReviewsModal(productId);
-            }
-            
-            if (e.target.closest('.share-btn')) {
-                const button = e.target.closest('.share-btn');
-                const productId = button.getAttribute('data-id');
-                const product = this.products.find(p => p.id == productId);
-                
-                if (product && navigator.share) {
-                    navigator.share({
-                        title: product.name,
-                        text: product.description,
-                        url: window.location.href
-                    });
+            stars.forEach((s, index) => {
+                if (index < rating) {
+                    s.classList.add('active');
+                    s.classList.remove('far');
+                    s.classList.add('fas');
                 } else {
-                    navigator.clipboard.writeText(window.location.href).then(() => {
-                        this.showSocialNotification('Tautan berhasil disalin!');
-                    });
-                }
-            }
-        });
-    }
-
-    openReviewsModal(productId) {
-        const reviewsModal = document.getElementById('reviews-modal');
-        const product = this.products.find(p => p.id == productId);
-        
-        if (!product || !reviewsModal) return;
-        
-        this.currentProductId = productId;
-        
-        // Set product info
-        document.getElementById('review-product-image').src = product.image;
-        document.getElementById('review-product-name').textContent = product.name;
-        
-        // Calculate rating
-        const productReviews = this.reviews[productId] || [];
-        const averageRating = productReviews.length > 0 
-            ? productReviews.reduce((sum, review) => sum + review.rating, 0) / productReviews.length
-            : product.rating;
-        
-        document.getElementById('review-product-rating').innerHTML = this.generateStars(averageRating);
-        document.getElementById('review-product-count').textContent = `(${productReviews.length} ulasan)`;
-        
-        // Display reviews
-        this.displayProductReviews(productId);
-        
-        // Show modal
-        reviewsModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-
-    displayProductReviews(productId) {
-        const reviewsList = document.getElementById('reviews-list');
-        const productReviews = this.reviews[productId] || [];
-        
-        if (!reviewsList) return;
-        
-        if (productReviews.length === 0) {
-            reviewsList.innerHTML = '<p class="no-reviews">Belum ada ulasan untuk produk ini.</p>';
-            return;
-        }
-        
-        reviewsList.innerHTML = productReviews.map(review => `
-            <div class="review-item">
-                <div class="review-header">
-                    <div class="reviewer-info">
-                        <h5>${review.name}</h5>
-                        <div class="stars">
-                            ${this.generateStars(review.rating)}
-                        </div>
-                    </div>
-                    <div class="review-meta">
-                        <span class="review-date">${review.date}</span>
-                    </div>
-                </div>
-                <p class="review-comment">${review.comment}</p>
-            </div>
-        `).join('');
-    }
-
-    updateProductRating(productId) {
-        const productCard = document.querySelector(`.product-card[data-category] .product-rating`);
-        if (!productCard) return;
-        
-        const productReviews = this.reviews[productId] || [];
-        const averageRating = productReviews.length > 0 
-            ? productReviews.reduce((sum, review) => sum + review.rating, 0) / productReviews.length
-            : this.products.find(p => p.id == productId).rating;
-        
-        const starsElement = productCard.querySelector('.stars');
-        const reviewCountElement = productCard.querySelector('.review-count');
-        
-        if (starsElement) starsElement.innerHTML = this.generateStars(averageRating);
-        if (reviewCountElement) reviewCountElement.textContent = `(${productReviews.length} ulasan)`;
-    }
-
-    initializePerformanceOptimizations() {
-        // Lazy loading
-        this.initializeLazyLoading();
-        
-        // Debounced resize handler
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                this.handleResize();
-            }, 100);
-        });
-    }
-
-    initializeLazyLoading() {
-        const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-        
-        const imageObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src || img.src;
-                    imageObserver.unobserve(img);
+                    s.classList.remove('active');
+                    s.classList.remove('fas');
+                    s.classList.add('far');
                 }
             });
-        });
-        
-        lazyImages.forEach(img => imageObserver.observe(img));
-    }
-
-    handleResize() {
-        // Handle responsive behavior
-        if (window.innerWidth <= 768) {
-            document.body.classList.add('mobile-view');
-        } else {
-            document.body.classList.remove('mobile-view');
         }
-    }
-
-    initializeFallback() {
-        // Fallback initialization if main initialization fails
-        console.log('Initializing fallback mode...');
-        this.products = this.backend.getDefaultProducts();
-        this.renderProducts(3);
-    }
-
-    startBackgroundServices() {
-        // Start any background services
-        setInterval(() => {
-            this.backend.updateLiveStats();
-        }, 30000);
+    });
+    
+    // Submit review
+    const submitReview = document.getElementById('submit-review');
+    if (submitReview) {
+        submitReview.addEventListener('click', function() {
+            const productId = this.getAttribute('data-product-id');
+            const reviewerName = document.getElementById('reviewer-name').value.trim();
+            const reviewComment = document.getElementById('review-comment').value.trim();
+            const activeStars = document.querySelectorAll('.star-rating i.active');
+            const rating = activeStars.length;
+            
+            if (!reviewerName || !reviewComment || rating === 0) {
+                alert('Silakan isi semua field dan berikan rating!');
+                return;
+            }
+            
+            // Add review to product
+            if (!reviews[productId]) {
+                reviews[productId] = [];
+            }
+            
+            reviews[productId].push({
+                id: Date.now().toString(),
+                name: reviewerName,
+                rating: rating,
+                comment: reviewComment,
+                date: new Date().toLocaleDateString('id-ID')
+            });
+            
+            // Save to localStorage
+            storage.set('productReviews', reviews);
+            
+            // Update reviews display
+            displayProductReviews(productId);
+            
+            // Reset form
+            document.getElementById('reviewer-name').value = '';
+            document.getElementById('review-comment').value = '';
+            const stars = document.querySelectorAll('.star-rating i');
+            stars.forEach(star => {
+                star.classList.remove('active');
+                star.classList.remove('fas');
+                star.classList.add('far');
+            });
+            
+            // Show success message
+            showSocialNotification('Ulasan berhasil ditambahkan!');
+            
+            // Update product rating in product card
+            updateProductRating(productId);
+        });
     }
 }
 
-// Add backend method for app load tracking
-MixCrunchBackend.prototype.trackAppLoad = function() {
-    this.sendAnalytics({
-        type: 'app_load',
-        timestamp: new Date().toISOString(),
-        userAgent: navigator.userAgent,
-        viewport: `${window.innerWidth}x${window.innerHeight}`
+// Open reviews modal
+function openReviewsModal(productId) {
+    const reviewsModal = document.getElementById('reviews-modal');
+    const product = products.find(p => p.id == productId);
+    
+    if (!product || !reviewsModal) return;
+    
+    // Set product info
+    document.getElementById('review-product-image').src = product.image;
+    document.getElementById('review-product-name').textContent = product.name;
+    
+    // Calculate average rating
+    const productReviews = reviews[productId] || [];
+    const averageRating = productReviews.length > 0 
+        ? productReviews.reduce((sum, review) => sum + review.rating, 0) / productReviews.length
+        : product.rating;
+    
+    // Update rating display
+    const ratingElement = document.getElementById('review-product-rating');
+    ratingElement.innerHTML = generateStars(averageRating);
+    
+    // Update review count
+    document.getElementById('review-product-count').textContent = `(${productReviews.length} ulasan)`;
+    
+    // Set product ID for submit button
+    document.getElementById('submit-review').setAttribute('data-product-id', productId);
+    
+    // Display reviews
+    displayProductReviews(productId);
+    
+    // Show modal
+    reviewsModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+// Close reviews modal
+function closeReviewsModal() {
+    const reviewsModal = document.getElementById('reviews-modal');
+    if (reviewsModal) {
+        reviewsModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Display product reviews
+function displayProductReviews(productId) {
+    const reviewsList = document.getElementById('reviews-list');
+    const productReviews = reviews[productId] || [];
+    
+    if (!reviewsList) return;
+    
+    if (productReviews.length === 0) {
+        reviewsList.innerHTML = '<p class="no-reviews">Belum ada ulasan untuk produk ini.</p>';
+        return;
+    }
+    
+    reviewsList.innerHTML = productReviews.map(review => `
+        <div class="review-item">
+            <div class="review-header">
+                <div class="reviewer-info">
+                    <h5>${review.name}</h5>
+                    <div class="stars">
+                        ${generateStars(review.rating)}
+                    </div>
+                </div>
+                <div class="review-meta">
+                    <span class="review-date">${review.date}</span>
+                    <button class="review-action-btn delete-review delete" data-id="${review.id}" data-product="${productId}">
+                        <i class="fas fa-trash"></i> Hapus
+                    </button>
+                </div>
+            </div>
+            <p class="review-comment">${review.comment}</p>
+        </div>
+    `).join('');
+    
+    // Add event listeners for delete buttons
+    document.querySelectorAll('.delete-review').forEach(button => {
+        button.addEventListener('click', function() {
+            const reviewId = this.getAttribute('data-id');
+            const productId = this.getAttribute('data-product');
+            deleteReview(productId, reviewId);
+        });
     });
-};
+}
 
-// Initialize the application when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    // Create global app instance
-    window.mixCrunchApp = new MixCrunchApp();
+// Delete review
+function deleteReview(productId, reviewId) {
+    if (!confirm('Apakah Anda yakin ingin menghapus ulasan ini?')) {
+        return;
+    }
     
-    // Add CSS for new components
-    const additionalCSS = `
-        .validation-notification {
-            position: fixed;
-            top: 100px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-20px);
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: white;
-            padding: 16px 24px;
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            opacity: 0;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-        
-        .validation-notification.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-        
-        .confirmation-dialog,
-        .success-dialog {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            backdrop-filter: blur(5px);
-        }
-        
-        .confirmation-dialog.show,
-        .success-dialog.show {
-            opacity: 1;
-        }
-        
-        .dialog-content {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-        
-        .confirmation-dialog.show .dialog-content,
-        .success-dialog.show .dialog-content {
-            transform: scale(1);
-        }
-        
-        .dialog-content h3 {
-            margin-bottom: 15px;
-            color: #1f2937;
-        }
-        
-        .dialog-content p {
-            margin-bottom: 25px;
-            color: #6b7280;
-            line-height: 1.6;
-        }
-        
-        .dialog-actions {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-        
-        .success-dialog .dialog-content i {
-            font-size: 3rem;
-            color: #10b981;
-            margin-bottom: 15px;
-        }
-        
-        .topping-selection-counter {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin-left: 8px;
-        }
-        
-        .pre-open {
-            display: flex !important;
-            opacity: 0 !important;
-        }
-        
-        .closing {
-            opacity: 0 !important;
-        }
-        
-        .mobile-view .product-actions {
-            flex-direction: column;
-        }
-        
-        @media (max-width: 768px) {
-            .dialog-actions {
-                flex-direction: column;
-            }
-        }
-    `;
+    const productReviews = reviews[productId] || [];
+    const reviewIndex = productReviews.findIndex(r => r.id === reviewId);
     
-    const style = document.createElement('style');
-    style.textContent = additionalCSS;
-    document.head.appendChild(style);
-});
+    if (reviewIndex !== -1) {
+        productReviews.splice(reviewIndex, 1);
+        
+        // Save to localStorage
+        storage.set('productReviews', reviews);
+        
+        // Update reviews display
+        displayProductReviews(productId);
+        
+        // Show success message
+        showSocialNotification('Ulasan berhasil dihapus!');
+        
+        // Update product rating in product card
+        updateProductRating(productId);
+    }
+}
 
-// Export for global access
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { MixCrunchApp, MixCrunchBackend };
+// Update product rating in product card
+function updateProductRating(productId) {
+    const productCard = document.querySelector(`.product-card[data-category] .product-rating`);
+    if (!productCard) return;
+    
+    const productReviews = reviews[productId] || [];
+    const averageRating = productReviews.length > 0 
+        ? productReviews.reduce((sum, review) => sum + review.rating, 0) / productReviews.length
+        : products.find(p => p.id == productId).rating;
+    
+    const starsElement = productCard.querySelector('.stars');
+    const reviewCountElement = productCard.querySelector('.review-count');
+    
+    if (starsElement) {
+        starsElement.innerHTML = generateStars(averageRating);
+    }
+    
+    if (reviewCountElement) {
+        reviewCountElement.textContent = `(${productReviews.length} ulasan)`;
+    }
 }
