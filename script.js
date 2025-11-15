@@ -199,8 +199,8 @@ class MixCrunchBackend {
                 id: 1,
                 name: "Ciki citato lite",
                 category: "gurih",
-                price: 7000,
-                oldPrice: 12000,
+                price: 12000,
+                oldPrice: 14000,
                 rating: 4.5,
                 reviews: 128,
                 description: "Ciki Citato Lite rasa original dengan kerenyahan khas yang bikin nagih. Cocok untuk menemani waktu santai, nonton, atau nongkrong bareng teman.",
@@ -216,8 +216,8 @@ class MixCrunchBackend {
                 id: 2,
                 name: "Ciki citato mie goreng",
                 category: "gurih",
-                price: 8000,
-                oldPrice: 13000,
+                price: 12000,
+                oldPrice: 15000,
                 rating: 4.8,
                 reviews: 95,
                 description: "Ciki Citato Lite rasa Mie Goreng — kombinasi gurih, asin, dan sedikit manis yang mirip mie goreng legendaris. Kerenyahan maksimal dengan aroma khas yang bikin lapar terus.",
@@ -233,8 +233,8 @@ class MixCrunchBackend {
                 id: 3,
                 name: "Ciki lays rumput laut",
                 category: "gurih",
-                price: 6000,
-                oldPrice: 11000,
+                price: 12000,
+                oldPrice: 13000,
                 rating: 4.3,
                 reviews: 76,
                 description: "Lays Rumput Laut menghadirkan kerenyahan kentang pilihan dengan balutan bumbu rumput laut yang gurih dan aromatik. Setiap gigitan memberikan rasa laut yang khas dan bikin nagih.",
@@ -248,7 +248,7 @@ class MixCrunchBackend {
                 id: 4,
                 name: "Ciki doritos",
                 category: "pedas",
-                price: 9500,
+                price: 12000,
                 oldPrice: 14000,
                 rating: 4.6,
                 reviews: 112,
@@ -264,8 +264,8 @@ class MixCrunchBackend {
                 id: 5,
                 name: "Ciki japota rumput laut ",
                 category: "gurih",
-                price: 6000,
-                oldPrice: 12000,
+                price: 12000,
+                oldPrice: 15000,
                 rating: 4.4,
                 reviews: 88,
                 description: "japota Rumput Laut hadir dengan potongan kentang super renyah dan bumbu rumput laut asli yang gurih serta aromatik. Setiap gigitan bikin kamu serasa ngemil di pinggir pantai Jepang.",
@@ -279,7 +279,7 @@ class MixCrunchBackend {
                 id: 6,
                 name: "Ciki japota ayam bawang",
                 category: "gurih",
-                price: 7500,
+                price: 12000,
                 oldPrice: 13000,
                 rating: 4.7,
                 reviews: 134,
@@ -295,8 +295,8 @@ class MixCrunchBackend {
                 id: 7,
                 name: "Ciki japota Sapi Panggang",
                 category: "spesial",
-                price: 7500,
-                oldPrice: 1200,
+                price: 12000,
+                oldPrice: 16000,
                 rating: 4.9,
                 reviews: 67,
                 description: "Japota Sapi Panggang menawarkan rasa daging sapi panggang premium dengan aroma smoky yang khas. Kentangnya tebal, gurih, dan renyah — bikin setiap gigitan terasa seperti makan steak mini.",
@@ -311,7 +311,7 @@ class MixCrunchBackend {
                 id: 8,
                 name: "Ciki twist jagung bakar",
                 category: "spesial",
-                price: 6500,
+                price: 12000,
                 oldPrice: 12500,
                 rating: 4.5,
                 reviews: 91,
@@ -392,6 +392,7 @@ class MixCrunchApp {
         this.selectedToppings = [];
         this.currentProductId = null;
         this.currentRating = 0;
+        this.editingReviewId = null;
         
         this.initializeApp();
     }
@@ -449,46 +450,33 @@ class MixCrunchApp {
         this.renderProducts(3);
     }
 
-    // Enhanced Toppings Modal with Page Transition Animation
+    // Enhanced Toppings Modal with Slide-in Animation
     initializeToppingsModal() {
         const toppingsModal = document.getElementById('toppings-modal');
         const closeToppings = document.querySelector('.close-toppings');
         const cancelToppings = document.getElementById('cancel-toppings');
         const confirmToppings = document.getElementById('confirm-toppings');
 
-        // Open toppings modal with enhanced animation
+        // Open toppings modal with slide-in animation
         window.openToppingsModal = () => {
             if (toppingsModal) {
-                // Add pre-open class for initial state
-                toppingsModal.classList.add('pre-open');
+                toppingsModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
                 
-                setTimeout(() => {
-                    toppingsModal.classList.remove('pre-open');
-                    toppingsModal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                    
-                    // Reset form
-                    document.getElementById('custom-toppings').value = '';
-                    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-                        checkbox.checked = false;
-                    });
-                    this.selectedToppings = [];
-                    
-                    // Add entrance animation
-                    this.animateModalEntrance(toppingsModal);
-                }, 50);
+                // Reset form
+                document.getElementById('custom-toppings').value = '';
+                document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                this.selectedToppings = [];
             }
         };
 
         // Enhanced close function
         const closeToppingsModal = () => {
             if (toppingsModal) {
-                toppingsModal.classList.add('closing');
-                
-                setTimeout(() => {
-                    toppingsModal.classList.remove('active', 'closing');
-                    document.body.style.overflow = '';
-                }, 400);
+                toppingsModal.classList.remove('active');
+                document.body.style.overflow = '';
             }
         };
 
@@ -554,7 +542,7 @@ class MixCrunchApp {
         }
     }
 
-    // Enhanced Reviews Modal with Better UX
+    // Enhanced Reviews Modal with Edit/Delete Features
     initializeReviewsModal() {
         const reviewsModal = document.getElementById('reviews-modal');
         const closeReviews = document.querySelector('.close-reviews');
@@ -562,12 +550,9 @@ class MixCrunchApp {
         // Enhanced close function
         const closeReviewsModal = () => {
             if (reviewsModal) {
-                reviewsModal.classList.add('closing');
-                
-                setTimeout(() => {
-                    reviewsModal.classList.remove('active', 'closing');
-                    document.body.style.overflow = '';
-                }, 400);
+                reviewsModal.classList.remove('active');
+                document.body.style.overflow = '';
+                this.editingReviewId = null;
             }
         };
 
@@ -635,7 +620,13 @@ class MixCrunchApp {
                 };
 
                 try {
-                    await this.backend.addProductReview(productId, reviewData);
+                    if (this.editingReviewId) {
+                        // Edit existing review
+                        await this.editProductReview(productId, this.editingReviewId, reviewData);
+                    } else {
+                        // Add new review
+                        await this.backend.addProductReview(productId, reviewData);
+                    }
                     
                     // Update UI
                     this.displayProductReviews(productId);
@@ -645,9 +636,10 @@ class MixCrunchApp {
                     document.getElementById('reviewer-name').value = '';
                     document.getElementById('review-comment').value = '';
                     this.setStarRating(0);
+                    this.editingReviewId = null;
                     
                     // Show success
-                    this.showSocialNotification('Ulasan berhasil ditambahkan!');
+                    this.showSocialNotification(this.editingReviewId ? 'Ulasan berhasil diperbarui!' : 'Ulasan berhasil ditambahkan!');
                     
                 } catch (error) {
                     this.showSocialNotification('Ulasan berhasil disimpan secara lokal!');
@@ -714,30 +706,21 @@ class MixCrunchApp {
         // Enhanced open cart function
         window.openCartSidebar = () => {
             if (cartSidebar && cartOverlay) {
-                cartSidebar.classList.add('pre-open');
+                cartSidebar.classList.add('active');
+                cartOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
                 
-                setTimeout(() => {
-                    cartSidebar.classList.remove('pre-open');
-                    cartSidebar.classList.add('active');
-                    cartOverlay.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                    
-                    // Update cart display
-                    this.updateCartDisplay();
-                }, 50);
+                // Update cart display
+                this.updateCartDisplay();
             }
         };
 
         // Enhanced close function
         const closeCartSidebar = () => {
             if (cartSidebar && cartOverlay) {
-                cartSidebar.classList.add('closing');
-                
-                setTimeout(() => {
-                    cartSidebar.classList.remove('active', 'closing');
-                    cartOverlay.classList.remove('active');
-                    document.body.style.overflow = '';
-                }, 400);
+                cartSidebar.classList.remove('active');
+                cartOverlay.classList.remove('active');
+                document.body.style.overflow = '';
             }
         };
 
@@ -1196,20 +1179,6 @@ class MixCrunchApp {
     }
 
     // Animation Methods
-    animateModalEntrance(modal) {
-        const content = modal.querySelector('.toppings-modal-content');
-        if (content) {
-            content.style.transform = 'scale(0.8) translateY(50px)';
-            content.style.opacity = '0';
-            
-            setTimeout(() => {
-                content.style.transition = 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-                content.style.transform = 'scale(1) translateY(0)';
-                content.style.opacity = '1';
-            }, 50);
-        }
-    }
-
     animateCartIcon() {
         const cartIcons = document.querySelectorAll('.cart-icon');
         cartIcons.forEach(icon => {
@@ -1330,14 +1299,22 @@ class MixCrunchApp {
         });
     }
 
+    // Enhanced Slider with Color Changes
     initializeSlider() {
-        // Slider implementation
         const slider = document.getElementById('slider');
         if (!slider) return;
 
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
         const dots = document.querySelectorAll('.slider-dot');
+        const heroBg = document.querySelector('.hero-bg');
+
+        // Define colors for each slide
+        const slideColors = [
+            'linear-gradient(135deg, #f97316 0%, #fb923c 100%)', // Orange
+            'linear-gradient(135deg, #fbbf24 0%, #fcd34d 100%)', // Yellow
+            'linear-gradient(135deg, #ef4444 0%, #f87171 100%)'  // Red
+        ];
 
         function showSlide(index) {
             slides.forEach(slide => slide.classList.remove('active'));
@@ -1346,6 +1323,11 @@ class MixCrunchApp {
             slides[index].classList.add('active');
             dots[index].classList.add('active');
             currentSlide = index;
+            
+            // Change background color
+            if (heroBg) {
+                heroBg.style.background = slideColors[index];
+            }
         }
 
         // Auto slide
@@ -1372,6 +1354,9 @@ class MixCrunchApp {
         dots.forEach((dot, index) => {
             dot.addEventListener('click', () => showSlide(index));
         });
+
+        // Initialize first slide
+        showSlide(0);
     }
 
     // Other initialization methods
@@ -1595,7 +1580,7 @@ class MixCrunchApp {
         }
         
         reviewsList.innerHTML = productReviews.map(review => `
-            <div class="review-item">
+            <div class="review-item" data-review-id="${review.id}">
                 <div class="review-header">
                     <div class="reviewer-info">
                         <h5>${review.name}</h5>
@@ -1608,8 +1593,96 @@ class MixCrunchApp {
                     </div>
                 </div>
                 <p class="review-comment">${review.comment}</p>
+                <div class="review-actions">
+                    <button class="review-action-btn edit-review" data-review-id="${review.id}">
+                        <i class="fas fa-edit"></i>
+                        Edit
+                    </button>
+                    <button class="review-action-btn delete-review" data-review-id="${review.id}">
+                        <i class="fas fa-trash"></i>
+                        Hapus
+                    </button>
+                </div>
             </div>
         `).join('');
+        
+        // Add event listeners for edit and delete buttons
+        this.attachReviewActionListeners(productId);
+    }
+
+    attachReviewActionListeners(productId) {
+        // Edit review
+        document.querySelectorAll('.edit-review').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const reviewId = e.target.closest('.edit-review').getAttribute('data-review-id');
+                this.editReview(reviewId, productId);
+            });
+        });
+
+        // Delete review
+        document.querySelectorAll('.delete-review').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const reviewId = e.target.closest('.delete-review').getAttribute('data-review-id');
+                this.deleteReview(reviewId, productId);
+            });
+        });
+    }
+
+    editReview(reviewId, productId) {
+        const productReviews = this.reviews[productId] || [];
+        const review = productReviews.find(r => r.id === reviewId);
+        
+        if (!review) return;
+        
+        // Populate form with review data
+        document.getElementById('reviewer-name').value = review.name;
+        document.getElementById('review-comment').value = review.comment;
+        this.setStarRating(review.rating);
+        
+        // Set editing mode
+        this.editingReviewId = reviewId;
+        
+        // Change button text
+        const submitButton = document.getElementById('submit-review');
+        if (submitButton) {
+            submitButton.innerHTML = '<i class="fas fa-save"></i> Perbarui Ulasan';
+        }
+    }
+
+    async editProductReview(productId, reviewId, reviewData) {
+        const productReviews = this.reviews[productId] || [];
+        const reviewIndex = productReviews.findIndex(r => r.id === reviewId);
+        
+        if (reviewIndex !== -1) {
+            productReviews[reviewIndex] = {
+                ...productReviews[reviewIndex],
+                ...reviewData
+            };
+            
+            this.reviews[productId] = productReviews;
+            this.backend.set('productReviews', this.reviews);
+            
+            return { success: true, message: 'Review updated successfully' };
+        }
+        
+        return { success: false, message: 'Review not found' };
+    }
+
+    deleteReview(reviewId, productId) {
+        this.showConfirmationDialog(
+            'Hapus Ulasan',
+            'Apakah Anda yakin ingin menghapus ulasan ini?',
+            () => {
+                const productReviews = this.reviews[productId] || [];
+                this.reviews[productId] = productReviews.filter(r => r.id !== reviewId);
+                
+                this.backend.set('productReviews', this.reviews);
+                this.displayProductReviews(productId);
+                this.updateProductRating(productId);
+                
+                this.showSocialNotification('Ulasan berhasil dihapus!');
+            }
+        );
     }
 
     updateProductRating(productId) {
