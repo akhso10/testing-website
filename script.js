@@ -202,7 +202,7 @@ class MixCrunchBackend {
                 price: 12000,
                 oldPrice: 14000,
                 rating: 4.5,
-                reviews: 128,
+                reviews: 0, // Reset to 0
                 description: "Ciki Citato Lite rasa original dengan kerenyahan khas yang bikin nagih. Cocok untuk menemani waktu santai, nonton, atau nongkrong bareng teman.",
                 image: "ciki 1.jpg",
                 badge: "new",
@@ -219,7 +219,7 @@ class MixCrunchBackend {
                 price: 12000,
                 oldPrice: 15000,
                 rating: 4.8,
-                reviews: 95,
+                reviews: 0, // Reset to 0
                 description: "Ciki Citato Lite rasa Mie Goreng — kombinasi gurih, asin, dan sedikit manis yang mirip mie goreng legendaris. Kerenyahan maksimal dengan aroma khas yang bikin lapar terus.",
                 image: "ciki 2.png",
                 badge: "new",
@@ -236,7 +236,7 @@ class MixCrunchBackend {
                 price: 12000,
                 oldPrice: 13000,
                 rating: 4.3,
-                reviews: 76,
+                reviews: 0, // Reset to 0
                 description: "Lays Rumput Laut menghadirkan kerenyahan kentang pilihan dengan balutan bumbu rumput laut yang gurih dan aromatik. Setiap gigitan memberikan rasa laut yang khas dan bikin nagih.",
                 image: "ciki 3.jpg",
                 variants: [
@@ -251,7 +251,7 @@ class MixCrunchBackend {
                 price: 12000,
                 oldPrice: 14000,
                 rating: 4.6,
-                reviews: 112,
+                reviews: 0, // Reset to 0
                 description: "Doritos Jagung Bakar menghadirkan sensasi renyah khas tortilla chips berpadu dengan rasa jagung bakar yang gurih, manis, dan sedikit smoky. Camilan favorit yang bikin susah berhenti ngemil.",
                 image: "ciki 4.jpg",
                 badge: "hot",
@@ -267,7 +267,7 @@ class MixCrunchBackend {
                 price: 12000,
                 oldPrice: 15000,
                 rating: 4.4,
-                reviews: 88,
+                reviews: 0, // Reset to 0
                 description: "japota Rumput Laut hadir dengan potongan kentang super renyah dan bumbu rumput laut asli yang gurih serta aromatik. Setiap gigitan bikin kamu serasa ngemil di pinggir pantai Jepang.",
                 image: "ciki 5.jpg",
                 variants: [
@@ -282,7 +282,7 @@ class MixCrunchBackend {
                 price: 12000,
                 oldPrice: 13000,
                 rating: 4.7,
-                reviews: 134,
+                reviews: 0, // Reset to 0
                 description: "Japota Ayam Bawang menghadirkan kelezatan rasa ayam gurih berpadu aroma bawang yang harum menggoda. Renyahnya kentang Japota membuat rasa klasik ini terasa makin istimewa di setiap gigitan.",
                 image: "ciki 6.jpg",
                 badge: "new",
@@ -298,7 +298,7 @@ class MixCrunchBackend {
                 price: 12000,
                 oldPrice: 16000,
                 rating: 4.9,
-                reviews: 67,
+                reviews: 0, // Reset to 0
                 description: "Japota Sapi Panggang menawarkan rasa daging sapi panggang premium dengan aroma smoky yang khas. Kentangnya tebal, gurih, dan renyah — bikin setiap gigitan terasa seperti makan steak mini.",
                 image: "ciki 10.jpg",
                 badge: "new",
@@ -314,7 +314,7 @@ class MixCrunchBackend {
                 price: 12000,
                 oldPrice: 12500,
                 rating: 4.5,
-                reviews: 91,
+                reviews: 0, // Reset to 0
                 description: "Ciki Twist Jagung Bakar menghadirkan sensasi gurih dan manis dari jagung bakar khas Indonesia. Teksturnya ringan, renyah, dan bikin susah berhenti ngemil. Cocok untuk semua suasana.",
                 image: "ciki 11.jpg",
                 variants: [
@@ -450,14 +450,14 @@ class MixCrunchApp {
         this.renderProducts(3);
     }
 
-    // Enhanced Toppings Modal with Slide-in Animation
+    // Enhanced Toppings Modal with Cart Animation
     initializeToppingsModal() {
         const toppingsModal = document.getElementById('toppings-modal');
         const closeToppings = document.querySelector('.close-toppings');
         const cancelToppings = document.getElementById('cancel-toppings');
         const confirmToppings = document.getElementById('confirm-toppings');
 
-        // Open toppings modal with slide-in animation
+        // Open toppings modal with cart animation
         window.openToppingsModal = () => {
             if (toppingsModal) {
                 toppingsModal.classList.add('active');
@@ -469,10 +469,11 @@ class MixCrunchApp {
                     checkbox.checked = false;
                 });
                 this.selectedToppings = [];
+                this.updateSelectedToppingsDisplay();
             }
         };
 
-        // Enhanced close function
+        // Enhanced close function with cart animation
         const closeToppingsModal = () => {
             if (toppingsModal) {
                 toppingsModal.classList.remove('active');
@@ -509,20 +510,38 @@ class MixCrunchApp {
                     this.selectedToppings = this.selectedToppings.filter(topping => topping.name !== toppingName);
                 }
                 
-                // Update selection counter
-                this.updateToppingSelectionCounter();
+                // Update selection display
+                this.updateSelectedToppingsDisplay();
             }
         });
 
         // Enhanced confirm toppings with validation
         if (confirmToppings) {
             confirmToppings.addEventListener('click', () => {
-                const customToppings = document.getElementById('custom-toppings').value.trim();
+                // Validate minimum 2 toppings from different categories
+                const selectedSaus = this.selectedToppings.filter(topping => 
+                    ['Saus Tomat', 'Saus Sambal', 'Mayones', 'Saus BBQ'].includes(topping.name)
+                ).length;
                 
-                if (this.selectedToppings.length === 0) {
-                    this.showValidationError('Silakan pilih minimal satu topping sebelum melanjutkan!');
+                const selectedSayuran = this.selectedToppings.filter(topping => 
+                    ['Selada', 'Tomat', 'Timun', 'Jagung'].includes(topping.name)
+                ).length;
+                
+                const selectedTopping = this.selectedToppings.filter(topping => 
+                    ['Nugget', 'Sosis', 'Keju', 'Telur'].includes(topping.name)
+                ).length;
+                
+                if (this.selectedToppings.length < 2) {
+                    this.showValidationError('Silakan pilih minimal 2 topping dari kategori yang berbeda!');
                     return;
                 }
+                
+                if (selectedSaus === 0 || selectedSayuran === 0 || selectedTopping === 0) {
+                    this.showValidationError('Silakan pilih minimal 1 topping dari setiap kategori (saus, sayuran, dan topping tambahan)!');
+                    return;
+                }
+
+                const customToppings = document.getElementById('custom-toppings').value.trim();
                 
                 // Add loading state
                 confirmToppings.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
@@ -542,17 +561,71 @@ class MixCrunchApp {
         }
     }
 
-    // Enhanced Reviews Modal with Edit/Delete Features
+    // Update selected toppings display
+    updateSelectedToppingsDisplay() {
+        const selectedToppingsList = document.getElementById('selected-toppings-list');
+        if (!selectedToppingsList) return;
+
+        selectedToppingsList.innerHTML = '';
+
+        if (this.selectedToppings.length === 0) {
+            selectedToppingsList.innerHTML = '<div class="no-toppings-selected">Belum ada topping yang dipilih</div>';
+        } else {
+            this.selectedToppings.forEach((topping, index) => {
+                const toppingTag = document.createElement('div');
+                toppingTag.className = 'selected-topping-tag';
+                toppingTag.innerHTML = `
+                    ${topping.name}
+                    <button class="remove-topping" data-index="${index}">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                selectedToppingsList.appendChild(toppingTag);
+            });
+
+            // Add event listeners for remove buttons
+            document.querySelectorAll('.remove-topping').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const index = parseInt(e.target.closest('.remove-topping').getAttribute('data-index'));
+                    this.removeTopping(index);
+                });
+            });
+        }
+    }
+
+    // Remove topping from selection
+    removeTopping(index) {
+        if (index >= 0 && index < this.selectedToppings.length) {
+            // Find and uncheck the corresponding checkbox
+            const toppingName = this.selectedToppings[index].name;
+            const checkbox = document.querySelector(`input[value="${toppingName}"]`);
+            if (checkbox) {
+                checkbox.checked = false;
+                checkbox.closest('.topping-option').classList.remove('selected');
+            }
+            
+            this.selectedToppings.splice(index, 1);
+            this.updateSelectedToppingsDisplay();
+        }
+    }
+
+    // Enhanced Reviews Modal with Cart Animation
     initializeReviewsModal() {
         const reviewsModal = document.getElementById('reviews-modal');
         const closeReviews = document.querySelector('.close-reviews');
 
-        // Enhanced close function
+        // Enhanced close function with cart animation
         const closeReviewsModal = () => {
             if (reviewsModal) {
                 reviewsModal.classList.remove('active');
                 document.body.style.overflow = '';
                 this.editingReviewId = null;
+                
+                // Reset button text
+                const submitButton = document.getElementById('submit-review');
+                if (submitButton) {
+                    submitButton.innerHTML = '<i class="fas fa-paper-plane"></i> Kirim Ulasan';
+                }
             }
         };
 
@@ -1094,25 +1167,17 @@ class MixCrunchApp {
 
     // Enhanced UI Components
     showValidationError(message) {
-        const notification = document.createElement('div');
-        notification.className = 'validation-notification';
-        notification.innerHTML = `
-            <i class="fas fa-exclamation-triangle"></i>
-            <span>${message}</span>
-        `;
+        const notification = document.getElementById('validation-notification');
+        const notificationText = document.getElementById('validation-notification-text');
         
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
+        if (notification && notificationText) {
+            notificationText.textContent = message;
             notification.classList.add('show');
-        }, 100);
-        
-        setTimeout(() => {
-            notification.classList.remove('show');
+            
             setTimeout(() => {
-                document.body.removeChild(notification);
-            }, 300);
-        }, 4000);
+                notification.classList.remove('show');
+            }, 4000);
+        }
     }
 
     showConfirmationDialog(title, message, onConfirm) {
@@ -1238,23 +1303,6 @@ class MixCrunchApp {
     getRandomColor() {
         const colors = ['red', 'yellow', 'green', 'blue', 'purple', 'orange'];
         return colors[Math.floor(Math.random() * colors.length)];
-    }
-
-    updateToppingSelectionCounter() {
-        const counter = document.querySelector('.topping-selection-counter');
-        if (!counter) {
-            const header = document.querySelector('.toppings-header h3');
-            if (header) {
-                const newCounter = document.createElement('span');
-                newCounter.className = 'topping-selection-counter';
-                header.appendChild(newCounter);
-            }
-        }
-        
-        const counterElement = document.querySelector('.topping-selection-counter');
-        if (counterElement) {
-            counterElement.textContent = ` (${this.selectedToppings.length} dipilih)`;
-        }
     }
 
     // Initialize other components
@@ -1563,7 +1611,7 @@ class MixCrunchApp {
         // Display reviews
         this.displayProductReviews(productId);
         
-        // Show modal
+        // Show modal with cart animation
         reviewsModal.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
