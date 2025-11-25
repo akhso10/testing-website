@@ -450,18 +450,24 @@ class MixCrunchApp {
         this.renderProducts(3);
     }
 
-    // Enhanced Toppings Modal with Cart Animation
+    // Enhanced Toppings Modal with Full Screen Desktop
     initializeToppingsModal() {
         const toppingsModal = document.getElementById('toppings-modal');
         const closeToppings = document.querySelector('.close-toppings');
         const cancelToppings = document.getElementById('cancel-toppings');
         const confirmToppings = document.getElementById('confirm-toppings');
 
-        // Open toppings modal with cart animation
+        // Open toppings modal with animation
         window.openToppingsModal = () => {
             if (toppingsModal) {
                 toppingsModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
+                
+                // Add animation class
+                const modalContent = document.querySelector('.toppings-modal-content');
+                if (modalContent) {
+                    modalContent.classList.add('modal-open-animation');
+                }
                 
                 // Reset form
                 document.getElementById('custom-toppings').value = '';
@@ -473,11 +479,17 @@ class MixCrunchApp {
             }
         };
 
-        // Enhanced close function with cart animation
+        // Enhanced close function with animation
         const closeToppingsModal = () => {
             if (toppingsModal) {
                 toppingsModal.classList.remove('active');
                 document.body.style.overflow = '';
+                
+                // Remove animation class
+                const modalContent = document.querySelector('.toppings-modal-content');
+                if (modalContent) {
+                    modalContent.classList.remove('modal-open-animation');
+                }
             }
         };
 
@@ -489,7 +501,7 @@ class MixCrunchApp {
             cancelToppings.addEventListener('click', closeToppingsModal);
         }
 
-        // Handle topping selection with enhanced UX
+        // Handle topping selection with enhanced UX and animations
         document.addEventListener('change', (e) => {
             if (e.target.type === 'checkbox' && e.target.name) {
                 const toppingName = e.target.value;
@@ -497,14 +509,13 @@ class MixCrunchApp {
                 
                 // Add selection animation
                 if (e.target.checked) {
-                    toppingElement.classList.add('selected');
+                    toppingElement.classList.add('selected', 'animate-click');
                     this.selectedToppings.push({ name: toppingName });
                     
-                    // Add subtle bounce effect
-                    toppingElement.style.transform = 'scale(0.95)';
+                    // Add bounce effect
                     setTimeout(() => {
-                        toppingElement.style.transform = 'scale(1)';
-                    }, 150);
+                        toppingElement.classList.remove('animate-click');
+                    }, 300);
                 } else {
                     toppingElement.classList.remove('selected');
                     this.selectedToppings = this.selectedToppings.filter(topping => topping.name !== toppingName);
@@ -609,17 +620,23 @@ class MixCrunchApp {
         }
     }
 
-    // Enhanced Reviews Modal with Cart Animation
+    // Enhanced Reviews Modal with Full Screen Desktop
     initializeReviewsModal() {
         const reviewsModal = document.getElementById('reviews-modal');
         const closeReviews = document.querySelector('.close-reviews');
 
-        // Enhanced close function with cart animation
+        // Enhanced close function with animation
         const closeReviewsModal = () => {
             if (reviewsModal) {
                 reviewsModal.classList.remove('active');
                 document.body.style.overflow = '';
                 this.editingReviewId = null;
+                
+                // Remove animation class
+                const modalContent = document.querySelector('.reviews-modal-content');
+                if (modalContent) {
+                    modalContent.classList.remove('modal-open-animation');
+                }
                 
                 // Reset button text
                 const submitButton = document.getElementById('submit-review');
@@ -633,12 +650,18 @@ class MixCrunchApp {
             closeReviews.addEventListener('click', closeReviewsModal);
         }
 
-        // Enhanced star rating with click functionality
+        // Enhanced star rating with click functionality and animation
         document.addEventListener('click', (e) => {
             if (e.target.closest('.star-rating i')) {
                 const star = e.target.closest('.star-rating i');
                 const rating = parseInt(star.getAttribute('data-rating'));
                 this.setStarRating(rating);
+                
+                // Add click animation
+                star.classList.add('animate-click');
+                setTimeout(() => {
+                    star.classList.remove('animate-click');
+                }, 300);
             }
         });
 
@@ -1611,9 +1634,15 @@ class MixCrunchApp {
         // Display reviews
         this.displayProductReviews(productId);
         
-        // Show modal with cart animation
+        // Show modal with animation
         reviewsModal.classList.add('active');
         document.body.style.overflow = 'hidden';
+        
+        // Add animation class
+        const modalContent = document.querySelector('.reviews-modal-content');
+        if (modalContent) {
+            modalContent.classList.add('modal-open-animation');
+        }
     }
 
     displayProductReviews(productId) {
